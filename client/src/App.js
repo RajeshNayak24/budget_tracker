@@ -1,15 +1,19 @@
 
 import './App.css';
+import  { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import LoginPage from './pages/LoginPage';
+import Dashboard from './pages/Dashboard';
+
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <h1> WELCOME TO BUDGET TRACKER </h1>
-        <LoginPage /> 
-      </header>
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<LoginPage />} />
+        <Route path="/dashboard" element={<Dashboard />}  />
+      </Routes>
+    </Router>
   );
 }
 

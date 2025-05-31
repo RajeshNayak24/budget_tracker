@@ -1,4 +1,8 @@
 import React, {useState} from 'react'
+import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
+
+
 
 const LoginPage = () => {
     const [email, setEmail]  = useState('')
@@ -6,7 +10,9 @@ const LoginPage = () => {
     const [error, setError] = useState('')
     const [loading, setLoding] = useState(false)
 
-    const handleSubmit = (e) =>{
+    const navigate = useNavigate()
+
+    const handleSubmit = async(e) =>{
         e.preventDefault()
         
         if(!email || !password){
@@ -15,17 +21,23 @@ const LoginPage = () => {
         }
         setError('')
         setLoding(true)
-
-        setTimeout(()=>{
-            console.log('Email :', email)
-            console.log('Password:', password)
+        try {
+            const response = await axios.post('http://localhost:5050/login', { email, password })
+            console.log('Backend Response:', response.data);
+            // alert('Login success')
+            
+            localStorage.setItem('token', response.data.token)
+            navigate('/dashboard')
+        } catch (error) {
+            console.log(error)
+            setError('Invalid email or password')
+        }finally{
             setLoding(false)
-        },2000)
-        
+        }
+};
 
-    }
   return (
-    <div style={{ maxwidth: '400px', margin: '0 auto', padding:'20px' }}>
+    <div style={{ maxWidth: 'fit-content', margin: 'auto', inline: 'auto', padding:'20px' }}>
         <h2>LoginPage</h2>
         {error && <p style= {{color:'red'}}>{error} </p>}
         <form onSubmit = {handleSubmit}>
@@ -56,7 +68,19 @@ const LoginPage = () => {
                 />
             </div>
             <div>
-                <button type="Submit" disabled={loading}>{loading? 'loading in...': 'Login'}</button>
+                <button 
+                    style={{
+                        marginTop: '1rem',
+                        padding: '10px 20px',
+                        backgroundColor: '#e74c3c',
+                        color: '#fff',
+                        border: 'none',
+                        borderRadius: '5px',
+                        cursor: 'pointer'
+                    }}
+                    type="Submit" 
+                    disabled={loading}>{loading? 'loading in...': 'Login' }
+                </button>
             </div>
         </form>
     </div>
