@@ -8,15 +8,22 @@ app.use(cors());
 app.use(express.json());
 
 app.get('/', (req, res) => {
-  res.send('Hello World!');
+  res.send('Welcome to Budget Tracker!');
 });
 
 app.post('/login', (req, res) => {
+    console.log('Login attempt:', req.body);
     const {email, password} = req.body;
 
     if (email === 'admin@example.com' && password === 'password123') {
       // Login successful
-      return res.status(200).json({ message: 'Login successful'});
+      const token = 'dummy-jwt-token';
+      const user = { email };
+      return res.status(200).json({ 
+        message: 'Login successful',
+        token,
+        user
+      });
     } else {
       // Login failed
       return res.status(401).json({ message: 'Invalid credentials' });

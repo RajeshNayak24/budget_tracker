@@ -1,17 +1,31 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+
 
 const Dashboard = () => {
 
   const navigate = useNavigate()
+  const [user, setUser] = useState('')
+  
+  useEffect(() => {
+    const userString = localStorage.getItem('user')
+    // console.log('userString: ',userString)
+    if (userString) {
+      const userObj = JSON.parse(userString)
+      // console.log("userObj: ",userObj)
+      setUser(userObj.email)
+    }
+  }, [])
+  
   const handleLogout =()=>{
     localStorage.removeItem('token')
+    localStorage.removeItem('user')
     navigate('/')
   }
 
   return (
     <div style={{ maxWidth: 'fit-content', margin: 'auto', inline: 'auto', padding:'20px' }}>
-        <h2>Welcome to the Dashboard!🎉</h2>
+        <h2>Welcome back, {user} 🎉</h2>
         <p>You are now logged in!</p>
 
         <div>
