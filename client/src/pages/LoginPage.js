@@ -22,12 +22,22 @@ const LoginPage = () => {
         setError('')
         setLoding(true)
         try {
-            const response = await axios.post('http://localhost:5050/login', { email, password })
-            console.log('Backend Response:', response.data);
+            const response = await axios.post('http://localhost:5050/login', { 
+                email, 
+                password 
+            })
+            console.log('Backend Response:',response.data);
             // alert('Login success')
-            
-            localStorage.setItem('token', response.data.token)
-            navigate('/dashboard')
+            const {token,user} =  response.data
+
+            if(token && user){
+                localStorage.setItem('token', token)
+                localStorage.setItem('user', JSON.stringify(user))
+                navigate('/dashboard')
+            }else{
+                setError('Unexpected response from server')
+            }
+
         } catch (error) {
             console.log(error)
             setError('Invalid email or password')
@@ -42,7 +52,7 @@ const LoginPage = () => {
         {error && <p style= {{color:'red'}}>{error} </p>}
         <form onSubmit = {handleSubmit}>
             <div style={{marginbottom: '15px'}}>
-                <label htmlfor='email'>Email:</label><br/>
+                <label htmlFor='email'>Email:</label><br/>
                 <input
                     type="email"
                     id="email"
@@ -55,7 +65,7 @@ const LoginPage = () => {
                 />
             </div>
             <div style = {{marginbottom: '15px'}}>
-                <label htmlfor="password" >Password:</label><br/>
+                <label htmlFor="password" >Password:</label><br/>
                 <input 
                     type="password" 
                     id="password" 
