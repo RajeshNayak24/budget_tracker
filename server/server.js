@@ -30,6 +30,20 @@ app.post('/login', (req, res) => {
     }
 });
 
+app.post('/signup', (req,res) =>{
+  console.log('Signup attempt:', req.body)
+  const {name,email,password,confirmPassword} = req.body
+
+  const token = 'dummytokenforsignup';
+  const user = {name, email, password,confirmPassword};
+  res.json({
+    message: 'Signup successful',
+    token,
+    user
+  })
+
+})
+
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
 });
