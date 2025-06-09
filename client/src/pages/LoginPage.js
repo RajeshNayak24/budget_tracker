@@ -1,6 +1,7 @@
 import React, {useState} from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
+import './../styles/LoginPage.css'
 
 
 
@@ -47,11 +48,11 @@ const LoginPage = () => {
 };
 
   return (
-    <div style={{ maxWidth: 'fit-content', margin: 'auto', inline: 'auto', padding:'20px' }}>
+    <div className="login-container">
         <h2>LoginPage</h2>
-        {error && <p style= {{color:'red'}}>{error} </p>}
+        {error && <p className='error'>{error} </p>}
         <form onSubmit = {handleSubmit}>
-            <div style={{marginbottom: '15px'}}>
+            <div className="email">
                 <label htmlFor='email'>Email:</label><br/>
                 <input
                     type="email"
@@ -64,7 +65,7 @@ const LoginPage = () => {
                     }}
                 />
             </div>
-            <div style = {{marginbottom: '15px'}}>
+            <div className='password'>
                 <label htmlFor="password" >Password:</label><br/>
                 <input 
                     type="password" 
@@ -78,16 +79,7 @@ const LoginPage = () => {
                 />
             </div>
             <div>
-                <button 
-                    style={{
-                        marginTop: '1rem',
-                        padding: '10px 20px',
-                        backgroundColor: '#e74c3c',
-                        color: '#fff',
-                        border: 'none',
-                        borderRadius: '5px',
-                        cursor: 'pointer'
-                    }}
+                <button className="login-button"
                     type="Submit" 
                     disabled={loading}>{loading? 'loading in...': 'Login' }
                 </button>

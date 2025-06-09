@@ -1,6 +1,7 @@
 import React,{useState} from 'react';
 import axios from 'axios';
 import {useNavigate} from 'react-router-dom';
+import '../styles/SignupPage.css'
 
 const SignupPage = () => {
     const [name, setName] = useState('');   
@@ -63,10 +64,10 @@ const SignupPage = () => {
         
     }
     return (
-    <div style={{maxWidth: 'fit-content', margin: 'auto', inline: 'auto', padding:'20px'}}>
+    <div className='signup-container'>
         <h2>Create an Account 📝</h2>
         {error && (
-            <div style={{color:'red', fontSize:'14px', marginBottom:'1rem'}}>{error}</div>
+            <div className='error-message'>{error}</div>
         )}
         <form onSubmit={handleSubmit}>
            <div>
@@ -116,15 +117,7 @@ const SignupPage = () => {
             </div>
             <div>
                 <button 
-                    style={{
-                        marginTop: '1rem',
-                        padding: '10px 20px',
-                        backgroundColor: '#e74c3c',
-                        color: '#fff',
-                        border: 'none',
-                        borderRadius: '5px',
-                        cursor: 'pointer'
-                    }}
+                    className="signup-button"
                     type="Submit" 
                     disabled={loading}>{loading? 'Signing up...' : 'Create Account' }
                 </button>

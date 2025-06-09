@@ -1,44 +1,29 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
+import '../styles/HomePage.css'
 
 const HomePage = () => {
     const navigate = useNavigate()
   return (
-    <div style={{ maxWidth: 'fit-content', margin: 'auto', inline: 'auto', padding:'20px' }}>
+    <div className="homepage-container">
         <h1>Welcome to the Budget Tracker</h1>
-        <div>
-            <button  
-            style={{
-                marginTop: '1rem',
-                padding: '10px 20px',
-                backgroundColor: '#e74c3c',
-                color: '#fff',
-                border: 'none',
-                borderRadius: '5px',
-                cursor: 'pointer'
-            }}
+        <div className='btn-group'>
+            <div>
+                <button  className='login-button'
+                    onClick={() => {
+                        navigate('/login')
+                    }}>
+                    Login
+                </button>
+            </div>
+            <div>
+                <button className='signup-button'
                 onClick={() => {
-                    navigate('/login')
+                    navigate('/signup')
                 }}>
-                Login
-            </button>
-        </div>
-        <div>
-            <button 
-            style={{
-                marginTop: '1rem',
-                padding: '10px 20px',
-                backgroundColor: '#e74c3c',
-                color: '#fff',
-                border: 'none',
-                borderRadius: '5px',
-                cursor: 'pointer'
-            }}
-            onClick={() => {
-                navigate('/signup')
-            }}>
-            Register
-            </button>
+                Register
+                </button>
+            </div>
         </div>
 
     </div>

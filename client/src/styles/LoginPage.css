@@ -1,0 +1,27 @@
+.login-container {
+    max-width: fit-content; 
+    margin: auto;
+    padding:20px;
+}
+
+.error {
+    color: red;
+}
+
+.email {
+    margin-bottom: '15px'
+}
+
+.password {
+    margin-bottom: '15px'
+}
+
+.login-button {
+    margin-top: 1rem;
+    padding: 10px 20px;
+    background-color: #e73c3c;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
