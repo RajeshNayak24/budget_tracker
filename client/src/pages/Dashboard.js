@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-
+import '../styles/Dashboard.css'
 
 const Dashboard = () => {
 
@@ -13,7 +13,7 @@ const Dashboard = () => {
     if (userString) {
       const userObj = JSON.parse(userString)
       // console.log("userObj: ",userObj)
-      setUser(userObj.email)
+      setUser(userObj.name)
     }
   }, [])
   
@@ -24,22 +24,14 @@ const Dashboard = () => {
   }
 
   return (
-    <div style={{ maxWidth: 'fit-content', margin: 'auto', inline: 'auto', padding:'20px' }}>
+    <div className='dashboard-container'>
         <h2>Welcome back, {user} 🎉</h2>
         <p>You are now logged in!</p>
 
         <div>
           <button 
             onClick={handleLogout}
-            style={{
-              marginTop: '1rem',
-              padding: '10px 20px',
-              backgroundColor: '#e74c3c',
-              color: '#fff',
-              border: 'none',
-              borderRadius: '5px',
-              cursor: 'pointer'
-            }}
+            className='logout-button'
           >
             Logout
           </button>

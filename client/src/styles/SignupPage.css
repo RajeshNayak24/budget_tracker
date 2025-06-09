@@ -1,0 +1,23 @@
+.signup-container {
+    max-width: fit-content;
+    margin: auto;
+    padding:20px;
+}
+
+.error-message {
+    color: red;
+    font-size: 16px;
+    margin-top: 10px;
+    margin-bottom: 1rem;
+    
+}
+.signup-button {
+    margin-top: 1rem;
+    padding: 10px 20px;
+    background-color: #e74c3c;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+
+}

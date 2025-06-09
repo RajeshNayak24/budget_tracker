@@ -7,6 +7,9 @@ const port = 5050;
 app.use(cors());
 app.use(express.json());
 
+
+const users = [];
+
 app.get('/', (req, res) => {
   res.send('Welcome to Budget Tracker!');
 });
@@ -15,13 +18,16 @@ app.post('/login', (req, res) => {
     console.log('Login attempt:', req.body);
     const {email, password} = req.body;
 
-    if (email === 'admin@example.com' && password === 'password123') {
-      // Login successful
-      const token = 'dummy-jwt-token';
-      const user = { email };
+    // if (email === 'admin@example.com' && password === 'password123') {
+    //   // Login successful
+    //   const token = 'dummy-jwt-token';
+    //   const user = { email };
+
+    const user = users.find(user => user.email === email && user.password === password);
+    if (user) {
       return res.status(200).json({ 
         message: 'Login successful',
-        token,
+        token: 'fake-jwt-token',
         user
       });
     } else {
@@ -36,6 +42,15 @@ app.post('/signup', (req,res) =>{
 
   const token = 'dummytokenforsignup';
   const user = {name, email, password,confirmPassword};
+
+  const existingUser = users.find(user => user.email === email);
+  if (existingUser) {
+    return res.status(400).json({ message: 'User already exists' });
+  }
+
+  // Save new user
+  users.push({ name, email, password, confirmPassword });
+  
   res.json({
     message: 'Signup successful',
     token,
