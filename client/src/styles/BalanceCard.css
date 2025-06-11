@@ -1,0 +1,24 @@
+.balance-card {
+    display: flex;
+    justify-content: space-between;
+    background-color: #f9f9f9; 
+    padding: 1rem;
+    border-radius: 8px; 
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.balance {
+    font-size: 24px;
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+.income {
+    color: green;
+}
+
+.expense {
+    color: red;
+}

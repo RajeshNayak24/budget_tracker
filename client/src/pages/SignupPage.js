@@ -33,7 +33,7 @@ const SignupPage = () => {
         setLoding(true)
         try {
             
-            const response = await axios.post('http://localhost:5050/signup', {
+            const response = await axios.post('http://localhost:5050/api/signup', {
                 name,
                 email,
                 password,

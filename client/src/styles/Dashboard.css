@@ -1,16 +1,12 @@
-.dashboard-container {
-    max-width: fit-content;
-    margin: auto;
-    padding: 20px;
+
+.app-layout {
+  display: flex;
+  min-height: 100vh;
 }
 
-.logout-button {
-    margin-top: 1rem;
-    padding: 10px 20px;
-    background-color: #e74c3c;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-
+.dashboard-content {
+  flex: 1;
+  padding: 2rem;
+  background-color: #f4f6f8;
+  max-width: 1200px;
 }

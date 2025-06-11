@@ -1,64 +1,9 @@
-const express = require('express');
-const cors = require('cors');
-const app = express();
-const port = 5050;
+require('dotenv').config(); 
 
+const app = require('./app');
 
-app.use(cors());
-app.use(express.json());
+const PORT = process.env.PORT || 5050;
 
-
-const users = [];
-
-app.get('/', (req, res) => {
-  res.send('Welcome to Budget Tracker!');
-});
-
-app.post('/login', (req, res) => {
-    console.log('Login attempt:', req.body);
-    const {email, password} = req.body;
-
-    // if (email === 'admin@example.com' && password === 'password123') {
-    //   // Login successful
-    //   const token = 'dummy-jwt-token';
-    //   const user = { email };
-
-    const user = users.find(user => user.email === email && user.password === password);
-    if (user) {
-      return res.status(200).json({ 
-        message: 'Login successful',
-        token: 'fake-jwt-token',
-        user
-      });
-    } else {
-      // Login failed
-      return res.status(401).json({ message: 'Invalid credentials' });
-    }
-});
-
-app.post('/signup', (req,res) =>{
-  console.log('Signup attempt:', req.body)
-  const {name,email,password,confirmPassword} = req.body
-
-  const token = 'dummytokenforsignup';
-  const user = {name, email, password,confirmPassword};
-
-  const existingUser = users.find(user => user.email === email);
-  if (existingUser) {
-    return res.status(400).json({ message: 'User already exists' });
-  }
-
-  // Save new user
-  users.push({ name, email, password, confirmPassword });
-  
-  res.json({
-    message: 'Signup successful',
-    token,
-    user
-  })
-
-})
-
-app.listen(port, () => {
-  console.log(`Server running at http://localhost:${port}`);
+app.listen(PORT, () => {
+  console.log(`🚀 Server running at http://localhost:${PORT}`);
 });
