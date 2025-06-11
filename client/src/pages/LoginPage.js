@@ -23,7 +23,7 @@ const LoginPage = () => {
         setError('')
         setLoding(true)
         try {
-            const response = await axios.post('http://localhost:5050/login', { 
+            const response = await axios.post('http://localhost:5050/api/login', { 
                 email, 
                 password 
             })
