@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const authRoutes = require("./routes/authRoutes");
+const transactionRoutes = require("./routes/transactionRoutes")
 const mongoose = require("mongoose");
 
 const app = express();
@@ -18,6 +19,7 @@ mongoose
 
 
 app.use("/api", authRoutes);
+app.use("/api", transactionRoutes)
 
 app.get("/", (req, res) => {
   res.send("🎯 Welcome to Budget Tracker!");

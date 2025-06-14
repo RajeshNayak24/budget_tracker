@@ -1,0 +1,92 @@
+.quick-actions {
+  background: #fff;
+  padding: 20px 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  max-width: 900px;
+  margin-bottom: 20px;
+}
+
+.quick-actions h3 {
+  margin-bottom: 20px;
+  color: #333;
+  font-size: 1.5rem;
+}
+
+
+.quick-actions-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 12px 10px;
+ 
+
+}
+
+.add-income:hover {
+  background-color: #d8d2d2;
+}
+
+.add-expense:hover {
+  background-color: #d8d2d2;
+}
+
+.add-income {
+  flex: 2;
+  font-weight: 500;
+  color: #333;
+  max-width: 250px;
+  padding: 10px;
+  background-color: white;
+  border-radius: 10px;
+  border-color: red;
+}
+
+
+.add-expense {
+  flex: 2;
+  font-weight: 500;
+  color: #333;
+  max-width: 250px;
+  padding: 10px;
+  background-color: white;
+  border-radius: 10px;
+  border-color: red;
+}
+
+
+
+
+.quick-actions-buttons {
+  flex: 0 0 auto;
+  padding: 6px 12px;
+  margin-left: 10px;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+
+/* Mobile responsiveness */
+@media (max-width: 600px) {
+  .quick-actions-buttons {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .add-expense,
+  .add-income {
+    text-align: left;
+    width: 100%;
+  }
+
+  .add-expense,
+  .add-income {
+    margin-top: 8px;
+    margin-left: 0;
+  }
+}
