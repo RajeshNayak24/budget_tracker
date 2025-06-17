@@ -1,9 +1,10 @@
 
+
 .app-layout {
   display: flex;
 }
 
-.dashboard-content {
+.expenses-content {
   margin-left: var(--sidebar-width);
   padding: 2rem;
   width: calc(100% - var(--sidebar-width));
@@ -12,24 +13,16 @@
   transition: margin-left 0.3s ease, width 0.3s ease;
 }
 
-.dashboard-section {
-  display: flex;
-  gap: 20px;
-  margin: 20px 0;
-  flex-wrap: wrap;
-}
 
-.sidebar.collapsed ~ .dashboard-content {
+.sidebar.collapsed ~ .expenses-content {
   margin-left: var(--sidebar-collapsed-width);
   width: calc(100% - var(--sidebar-collapsed-width));
 }
 
 @media (max-width: 768px) {
-  .dashboard-content {
+  .expenses-content {
     margin-left: 0;
     width: 100%;
   }
 }
-
-
 
