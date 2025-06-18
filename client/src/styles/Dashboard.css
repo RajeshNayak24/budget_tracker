@@ -1,11 +1,11 @@
-
 .app-layout {
-  display: flex;
+    display: flex;
 }
 
 .dashboard-content {
   margin-left: var(--sidebar-width);
-  padding: 2rem;
+  padding: 59px;
+  padding-top: 0px;
   width: calc(100% - var(--sidebar-width));
   background-color: #f5f6fa;
   min-height: 100vh;

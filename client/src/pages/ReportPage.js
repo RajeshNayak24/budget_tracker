@@ -13,6 +13,8 @@ import {
   CartesianGrid,
   Legend,
   ResponsiveContainer,
+  LineChart,
+  Line,
 } from "recharts";
 import "../styles/ReportPage.css";
 
@@ -32,6 +34,19 @@ const COLORS = [
 
 const ReportsPage = () => {
   const [transactions, setTransactions] = useState([]);
+  const [selectedMonth, setSelectedMonth] = useState("");
+  const [selectedYear, setSelectedyear] = useState("");
+
+  const filteredTransactions = transactions.filter((t) => {
+    const date = new Date(t.date);
+    const month = (date.getMonth() + 1).toString().padStart(2, "0");
+    const year = date.getFullYear().toString();
+
+    return (
+      (!selectedMonth || month === selectedMonth) &&
+      (!selectedYear || year === selectedYear)
+    );
+  });
 
   useEffect(() => {
     const fetchTransactions = async () => {
@@ -51,18 +66,16 @@ const ReportsPage = () => {
     fetchTransactions();
   }, []);
 
-  // Summary calculations
-  const totalIncome = transactions
+  const totalIncome = filteredTransactions
     .filter((t) => t.type === "income")
     .reduce((acc, t) => acc + Number(t.amount), 0);
 
-  const totalExpense = transactions
+  const totalExpense = filteredTransactions
     .filter((t) => t.type === "expense")
     .reduce((acc, t) => acc + Number(t.amount), 0);
 
-  // Category breakdown for expense pie chart
   const categoryMap = {};
-  transactions.forEach((t) => {
+  filteredTransactions.forEach((t) => {
     if (t.type === "expense") {
       categoryMap[t.category] =
         (categoryMap[t.category] || 0) + Number(t.amount);
@@ -73,9 +86,8 @@ const ReportsPage = () => {
     value: categoryMap[key],
   }));
 
-  // Monthly totals for bar chart
   const monthlyTotals = {};
-  transactions.forEach((t) => {
+  filteredTransactions.forEach((t) => {
     const date = new Date(t.date);
     const month = `${date.getFullYear()}-${(date.getMonth() + 1)
       .toString()
@@ -92,6 +104,39 @@ const ReportsPage = () => {
     expense: totals.expense,
   }));
 
+  const handleDownloadcsv = () => {
+    console.log("Filtered transactions to export:", filteredTransactions);
+
+    if (!filteredTransactions.length) {
+      alert("No transactions to download.");
+      return;
+    }
+
+    const header = ["Date", "Type", "Amount", "Category", "Description"];
+    const csvRows = [
+      header.join(","),
+      ...filteredTransactions.map((t) =>
+        [
+          new Date(t.date).toLocaleDateString(),
+          t.type,
+          t.amount,
+          t.category,
+          t.description || "",
+        ]
+        .map((val) => `"${val}"`)
+        .join(",")
+      ),
+    ];
+
+    const blob = new Blob([csvRows.join("\n")], { type: "text/csv" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "filtered_report.csv";
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+
   return (
     <div className="app-layout">
       <Sidebar />
@@ -103,6 +148,38 @@ const ReportsPage = () => {
           <div className="summary-box expense">
             Total Expense: ₹{totalExpense}
           </div>
+        </div>
+        <div className="filters">
+          <select onChange={(e) => setSelectedMonth(e.target.value)}>
+            <option value="">All Months</option>
+            {[...Array(12)].map((_, i) => {
+              const month = (i + 1).toString().padStart(2, "0");
+              const label = new Date(0, i).toLocaleString("default", {
+                month: "long",
+              });
+              return (
+                <option key={month} value={month}>
+                  {label}
+                </option>
+              );
+            })}
+          </select>
+
+          <select onChange={(e) => setSelectedyear(e.target.value)}>
+            <option value="">All Years</option>
+            {[2020, 2021, 2022, 2023, 2024, 2025].map((y) => (
+              <option key={y} value={y}>
+                {y}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        <div className="report-actions">
+          <button onClick={handleDownloadcsv} className="download-btn">
+            {" "}
+            📥 Download CSV
+          </button>
         </div>
 
         <div className="charts">
@@ -145,6 +222,31 @@ const ReportsPage = () => {
                 <Bar dataKey="income" fill="#82ca9d" />
                 <Bar dataKey="expense" fill="#f06292" />
               </BarChart>
+            </ResponsiveContainer>
+          </div>
+
+          <div className="chart-box">
+            <h3>Income vs Expense Over Time</h3>
+            <ResponsiveContainer width="100%" height={300}>
+              <LineChart data={barChartData}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="month" />
+                <YAxis />
+                <Tooltip />
+                <Legend />
+                <Line
+                  type="monotone"
+                  dataKey="income"
+                  stroke="#00C49F"
+                  strokeWidth={2}
+                />
+                <Line
+                  type="monotone"
+                  dataKey="expense"
+                  stroke="#FF6F91"
+                  strokeWidth={2}
+                />
+              </LineChart>
             </ResponsiveContainer>
           </div>
         </div>

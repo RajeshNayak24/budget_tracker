@@ -1,10 +1,23 @@
 .homepage-container {
-    max-width: fit-content;
-    margin: auto;
+    width: 180vh;
+    height: 180vh;
     padding: 20px;
+    background-color: aqua;
+    position: fixed;
+}
+.homepage-container h1 {
+   justify-content: center;
+   border: 2px solid black;
+   border-radius: 8px;
+   display: flex;
+   background-color: beige;
+   align-items: center; /* Vertically center */
+   height: 10vh;
+
 }
 .btn-group{
     display: flex;
+    justify-content: center;
     gap: 50px;
 }
 .signup-button {
@@ -17,6 +30,10 @@
     cursor: pointer;
 
 }
+.signup-button:hover {
+    background-color: #d8d2d2;
+    color:black
+}
 
 .login-button {
     margin-top: 1rem;
@@ -26,4 +43,8 @@
     border: none;
     border-radius: 5px;
     cursor: pointer;
+}
+.login-button:hover{
+    background-color: #d8d2d2;
+    color:black
 }
