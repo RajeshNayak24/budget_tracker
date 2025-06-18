@@ -1,7 +1,14 @@
 .signup-container {
-    max-width: fit-content;
     margin: auto;
     padding:20px;
+    background-color: #afe8da;
+    border: none;
+    border-radius: 10px;
+    width: 380px;
+    height: 370px;
+    margin-top: 70px;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+    place-items: center;
 }
 
 .error-message {
@@ -20,4 +27,18 @@
     border-radius: 5px;
     cursor: pointer;
 
+}
+.loginbutton {
+    margin-top: 1rem;
+    padding: 6px 10px;
+    font-size: 0.9rem;
+    background-color: #e73c3c;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.loginbutton:hover{
+    background-color: #d8d2d2;
+    color:black
 }

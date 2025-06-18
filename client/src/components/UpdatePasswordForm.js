@@ -48,14 +48,16 @@ const UpdatePasswordForm = () => {
             onChange={(e) => setNewPassword(e.target.value)}
             required
           />
+          <div className="form-buttons">
           <button type="submit">Update Password</button>
           <button
             type="button"
             className="cancel-button"
             onClick={() => setShowForm(false)}
-          >
+            >
             Cancel
           </button>
+          </div>
         </form>
       )}
 

@@ -1,15 +1,20 @@
-.settings-page {
-  padding: 2rem;
+.settings-content {
+  padding: 59px;
+  padding-top: 0%;
   background-color: #f7f9fa;
   min-height: 100vh;
 }
 
-.settings-page h2 {
+.settings-content h2 {
   font-size: 2rem;
   margin-bottom: 2rem;
   color: #2c3e50;
 }
-
+.settings-page{
+  display: flex; 
+  justify-content: space-between;
+  align-items: center; 
+}
 .settings-section {
   background: white;
   padding: 1.5rem;
@@ -33,5 +38,13 @@
 .toggle-item label {
   font-weight: bold;
 }
+
+@media (max-width: 768px) {
+  .settings-content {
+    margin-left: 0;
+    width: 100%;
+  }
+}
+
 
 
