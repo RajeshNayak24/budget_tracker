@@ -5,13 +5,13 @@ const BalanceCard = ({ transactions }) => {
   const [balanceChange, setBalanceChange] = useState(0);
   const previousBalanceRef = useRef(0);
 
-  const income = transactions
+  const income = (transactions || [])
     .filter((t) => t.type === "income")
-    .reduce((sum, t) => sum + t.amount, 0);
+    .reduce((sum, t) => sum + Math.abs(t.amount), 0);
 
   const expense = transactions
     .filter((t) => t.type === "expense")
-    .reduce((sum, t) => sum + t.amount, 0);
+    .reduce((sum, t) => sum + Math.abs(t.amount), 0);
 
   const balance = income - expense;
 
@@ -34,11 +34,7 @@ const BalanceCard = ({ transactions }) => {
         <p>${balance.toFixed(2)}</p>
         <span
           className={`balance-change ${
-            balanceChange > 0
-              ? "positive"
-              : balanceChange < 0
-              ? "negative"
-              : ""
+            balanceChange > 0 ? "positive" : balanceChange < 0 ? "negative" : ""
           }`}
         >
           {getChangeText()}

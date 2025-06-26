@@ -36,17 +36,20 @@ const ReportsPage = () => {
   const [transactions, setTransactions] = useState([]);
   const [selectedMonth, setSelectedMonth] = useState("");
   const [selectedYear, setSelectedyear] = useState("");
+  const [plaidTransactions, setPlaidTransactions] = useState([]);
 
-  const filteredTransactions = transactions.filter((t) => {
-    const date = new Date(t.date);
-    const month = (date.getMonth() + 1).toString().padStart(2, "0");
-    const year = date.getFullYear().toString();
+  function inferCategory(name) {
+    const lowered = name.toLowerCase();
+    if (lowered.includes("uber") || lowered.includes("lyft")) return "Travel";
+    if (lowered.includes("mcdonald") || lowered.includes("starbucks"))
+      return "Food";
+    if (lowered.includes("airlines")) return "Travel";
+    if (lowered.includes("sparkfun")) return " Electronics";
 
-    return (
-      (!selectedMonth || month === selectedMonth) &&
-      (!selectedYear || year === selectedYear)
-    );
-  });
+    if (lowered.includes("amazon") || lowered.includes("shopping"))
+      return "Shopping";
+    return "Uncategorized";
+  }
 
   useEffect(() => {
     const fetchTransactions = async () => {
@@ -66,6 +69,50 @@ const ReportsPage = () => {
     fetchTransactions();
   }, []);
 
+  useEffect(() => {
+    const fetchPlaidTransactions = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        const res = await axios.post(
+          "http://localhost:5050/api/plaid/transactions",
+          {},
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
+
+        if (res.data) {
+          const tagged = res.data.map((tx) => ({
+            name: tx.name,
+            date: tx.date,
+            amount: Math.abs(tx.amount),
+            type: tx.amount < 0 ? "income" : "expense",
+            source: "plaid",
+            category: tx.category?.[0] || inferCategory(tx.name),
+          }));
+
+          setPlaidTransactions(tagged);
+        }
+      } catch (error) {
+        console.error("Error fetching transactions:", error);
+      }
+    };
+    fetchPlaidTransactions();
+  }, []);
+
+  const allTransactions = [...transactions, ...plaidTransactions];
+
+  const filteredTransactions = allTransactions.filter((t) => {
+    const date = new Date(t.date);
+    const month = (date.getMonth() + 1).toString().padStart(2, "0");
+    const year = date.getFullYear().toString();
+
+    return (
+      (!selectedMonth || month === selectedMonth) &&
+      (!selectedYear || year === selectedYear)
+    );
+  });
+
   const totalIncome = filteredTransactions
     .filter((t) => t.type === "income")
     .reduce((acc, t) => acc + Number(t.amount), 0);
@@ -77,8 +124,9 @@ const ReportsPage = () => {
   const categoryMap = {};
   filteredTransactions.forEach((t) => {
     if (t.type === "expense") {
-      categoryMap[t.category] =
-        (categoryMap[t.category] || 0) + Number(t.amount);
+      const category = t.category || "Uncategorized";
+      categoryMap[category] =
+        (categoryMap[category] || 0) + Math.abs(Number(t.amount));
     }
   });
   const categoryData = Object.keys(categoryMap).map((key) => ({
@@ -123,8 +171,8 @@ const ReportsPage = () => {
           t.category,
           t.description || "",
         ]
-        .map((val) => `"${val}"`)
-        .join(",")
+          .map((val) => `"${val}"`)
+          .join(",")
       ),
     ];
 
@@ -185,6 +233,8 @@ const ReportsPage = () => {
         <div className="charts">
           <div className="chart-box">
             <h3>Expense by Category</h3>
+            {console.log("categoryData", categoryData)}
+
             <ResponsiveContainer width="100%" height={300}>
               <PieChart>
                 <Pie

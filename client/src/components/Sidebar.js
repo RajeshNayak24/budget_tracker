@@ -1,4 +1,4 @@
-import React, { useState} from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {
   FaTachometerAlt,
@@ -7,6 +7,7 @@ import {
   FaChartPie,
   FaCog,
   FaSignOutAlt,
+  FaCreditCard,
 } from "react-icons/fa";
 import "../styles/Sidebar.css";
 
@@ -36,6 +37,12 @@ const Sidebar = () => {
             <Link to="/dashboard">
               <FaTachometerAlt className="sidebar-icon" />
               {!collapsed && "Dashboard"}
+            </Link>
+          </li>
+          <li>
+            <Link to="/link-bank">
+              <FaCreditCard className="sidebar-icon" />
+              {!collapsed && "LinkBank"}
             </Link>
           </li>
           <li>
