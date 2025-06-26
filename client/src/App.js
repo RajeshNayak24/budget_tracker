@@ -8,6 +8,7 @@ import ExpensesPage from "./pages/ExpensesPage";
 import MyAccountPage from "./pages/MyAccountPage";
 import ReportPage from "./pages/ReportPage";
 import SettingsPage from "./pages/SettingsPage";
+import BankLinkPage from "./pages/BankLinkPage";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route path="/myaccount" element={<MyAccountPage />} />
         <Route path="/report" element={<ReportPage />} />
         <Route path="/settings" element={<SettingsPage />} />
+        <Route path="/link-bank" element={<BankLinkPage />} />
       </Routes>
     </Router>
   );

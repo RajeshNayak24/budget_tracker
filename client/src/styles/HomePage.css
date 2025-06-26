@@ -3,7 +3,6 @@
     height: 180vh;
     padding: 20px;
     background-color: aqua;
-    position: fixed;
 }
 .homepage-container h1 {
    justify-content: center;
@@ -11,7 +10,7 @@
    border-radius: 8px;
    display: flex;
    background-color: beige;
-   align-items: center; /* Vertically center */
+   align-items: center; 
    height: 10vh;
 
 }
@@ -47,4 +46,11 @@
 .login-button:hover{
     background-color: #d8d2d2;
     color:black
+}
+
+@media (max-width:768px){
+    .homepage-container {
+        margin-left: 0;
+        width: 100%;
+  }
 }

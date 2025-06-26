@@ -25,30 +25,67 @@ const TransactionList = ({ transactions, fetchTransactions, onEdit }) => {
     <div className="transactions-list">
       <h2>Recent Transactions</h2>
       <div className="transactions-scroll-container">
-        <ul>
-          {transactions.map((transaction, index) => (
-            <li key={index} className={`transaction-item ${transaction.type}`}>
-              <span className="transaction-description">
-                {transaction.description}
-              </span>
-              <span className="transaction-amount">
-                ${transaction.amount.toFixed(2)}
-              </span>
-              <button
-                className="transaction-delete-button"
-                onClick={() => handleDeleteTransaction(transaction._id)}
+        <table className="transaction-table">
+          <thead>
+            <tr className="transaction-header">
+              <th>Date</th>
+              <th>Name</th>
+              <th>Category</th>
+              <th>Amount</th>
+              <th>Type</th>
+              <th colSpan="2">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {transactions.map((tx, index) => (
+              <tr
+                key={index}
+                className={`transaction-row ${
+                  tx.source === "plaid" ? "plaid-row" : "cash-row"
+                }`}
               >
-                Delete
-              </button>
-              <button
-                className="transaction-edit-button"
-                onClick={() => onEdit(transaction)}
-              >
-                Edit
-              </button>
-            </li>
-          ))}
-        </ul>
+                <td>{tx.date?.split("T")[0]}</td>
+                <td className="transaction-description">
+                  {tx.name || tx.description}
+                </td>
+                <td>
+                  {Array.isArray(tx.category)
+                    ? tx.category.join(", ")
+                    : tx.category}
+                </td>
+                <td className="transaction-amount">
+                  ${Math.abs(tx.amount).toFixed(2)}
+                </td>
+                <td>{tx.source === "plaid" ? "Card" : "Cash"}</td>
+                {tx.source !== "plaid" ? (
+                  <>
+                    <td>
+                      <button
+                        className="transaction-edit-button"
+                        onClick={() => onEdit(tx)}
+                      >
+                        Edit
+                      </button>
+                    </td>
+                    <td>
+                      <button
+                        className="transaction-delete-button"
+                        onClick={() => handleDeleteTransaction(tx._id)}
+                      >
+                        Delete
+                      </button>
+                    </td>
+                  </>
+                ) : (
+                  <>
+                    <td></td>
+                    <td></td>
+                  </>
+                )}
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
     </div>
   );
