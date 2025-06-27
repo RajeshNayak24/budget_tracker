@@ -37,6 +37,17 @@ const ReportsPage = () => {
   const [selectedMonth, setSelectedMonth] = useState("");
   const [selectedYear, setSelectedyear] = useState("");
   const [plaidTransactions, setPlaidTransactions] = useState([]);
+  const [showSidebar, setShowSidebar] = useState(true);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+      if (window.innerWidth > 768) setShowSidebar(true); // always show on desktop
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   function inferCategory(name) {
     const lowered = name.toLowerCase();
@@ -187,7 +198,20 @@ const ReportsPage = () => {
 
   return (
     <div className="app-layout">
-      <Sidebar />
+      {isMobile && (
+        <button
+          className="mobile-toggle-button"
+          onClick={() => setShowSidebar((prev) => !prev)}
+        >
+          ☰
+        </button>
+      )}
+
+      <Sidebar
+        isMobile={isMobile}
+        isVisible={showSidebar}
+        setIsVisible={setShowSidebar}
+      />
       <div className="reports-content">
         <h1>Reports 📊</h1>
 
