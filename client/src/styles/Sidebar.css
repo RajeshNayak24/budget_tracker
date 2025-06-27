@@ -1,6 +1,6 @@
 :root {
-  --sidebar-width: 220px;
-  --sidebar-collapsed-width: 60px;
+  --sidebar-width: 240px;
+  --sidebar-collapsed-width: 80px;
 }
 
 .sidebar {
@@ -12,9 +12,10 @@
   background-color: #2c3e50;
   color: white;
   padding: 1rem;
-  transition: all 0.3s ease;
+  transition: transform 0.3s ease;
   z-index: 1000;
   overflow-x: hidden;
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.15);
 }
 
 .sidebar.collapsed {
@@ -44,15 +45,31 @@
   color: #ecf0f1;
   text-decoration: none;
   font-weight: bold;
-  display: block;
+  display: flex;
+  align-items: center;
+  gap: 10px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  transition: color 0.2s ease;
 }
 
 .sidebar a:hover,
 .logout-button:hover {
   color: #1abc9c;
+}
+
+
+.sidebar-icon {
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+
+.sidebar.collapsed .sidebar-icon {
+  margin: 0 auto;
+  display: block;
+  text-align: center;
+  margin-bottom: 0.5rem;
 }
 
 .toggle-button {
@@ -64,33 +81,41 @@
   color: white;
   font-size: 1.5rem;
   cursor: pointer;
+  z-index: 1100;
 }
 
+
 @media (max-width: 768px) {
-  .sidebar {
+    .sidebar {
+    transform: translateX(-100%);
+    width: var(--sidebar-width);
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+  }
+
+  .sidebar.visible-on-mobile {
+    transform: translateX(0);
+  }
+
+  .sidebar.hidden-on-mobile {
     transform: translateX(-100%);
   }
 
-  .sidebar.collapsed {
-    transform: translateX(0);
-    width: var(--sidebar-width);
+  .mobile-toggle-button {
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    z-index: 1100;
+    background-color: #2c3e50;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    font-size: 1.5rem;
+    border-radius: 4px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
   }
-
-  .toggle-button {
-    top: 10px;
-    left: 10px;
-  }
 }
 
-
-.sidebar-icon {
-  margin-right: 10px;
-  font-size: 1.2rem;
-  vertical-align: middle;
-}
-.sidebar.collapsed .sidebar-icon {
-  margin-right: 0;
-  display: block;
-  text-align: center;
-  margin-bottom: 0.5rem;
-}

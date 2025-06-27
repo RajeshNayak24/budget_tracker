@@ -71,7 +71,7 @@
 }
 
 
-/* Mobile responsiveness */
+
 @media (max-width: 600px) {
   .quick-actions-buttons {
     flex-direction: column;

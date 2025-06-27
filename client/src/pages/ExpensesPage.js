@@ -11,6 +11,17 @@ const ExpensesPage = () => {
   const [plaidTransactions, setPlaidTransactions] = useState([]);
   const [editModalOpen, setEditModalOpen] = useState(false);
   const [selectedTransaction, setSelectedTransaction] = useState(null);
+  const [showSidebar, setShowSidebar] = useState(true);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+      if (window.innerWidth > 768) setShowSidebar(true); // always show on desktop
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   function inferCategory(name) {
     const lowered = name.toLowerCase();
@@ -82,22 +93,42 @@ const ExpensesPage = () => {
 
   return (
     <div className="app-layout">
-      <Sidebar />
-      <div className="expenses-content">
-        <h1>My Expenses</h1>
-        <QuickActions fetchTransactions={allTransactions} />
-        <TransactionList
-          transactions={allTransactions}
-          fetchTransactions={allTransactions}
-          onEdit={handleEdit}
-        />
+      {isMobile && (
+        <button
+          className="mobile-toggle-button"
+          onClick={() => setShowSidebar((prev) => !prev)}
+        >
+          ☰
+        </button>
+      )}
+
+      <Sidebar
+        isMobile={isMobile}
+        isVisible={showSidebar}
+        setIsVisible={setShowSidebar}
+      />
+      <main className="expenses-content">
+        <h1 className="expenses-title">💸 My Expenses</h1>
+
+        <section className="expenses-actions">
+          <QuickActions fetchTransactions={allTransactions} />
+        </section>
+
+        <section className="expenses-list">
+          <TransactionList
+            transactions={allTransactions}
+            fetchTransactions={allTransactions}
+            onEdit={handleEdit}
+          />
+        </section>
+
         <EditTransactionModal
           isOpen={editModalOpen}
           onClose={() => setEditModalOpen(false)}
           transaction={selectedTransaction}
           onUpdate={allTransactions}
         />
-      </div>
+      </main>
     </div>
   );
 };

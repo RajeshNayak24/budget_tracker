@@ -15,6 +15,17 @@ const Dashboard = () => {
   const [plaidTransactions, setPlaidTransactions] = useState([]);
   const [editModalOpen, setEditModalOpen] = useState(false);
   const [selectedTransaction, setSelectedTransaction] = useState(null);
+  const [showSidebar, setShowSidebar] = useState(true);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+      if (window.innerWidth > 768) setShowSidebar(true); // always show on desktop
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   function inferCategory(name) {
     const lowered = name.toLowerCase();
@@ -94,12 +105,27 @@ const Dashboard = () => {
 
   return (
     <div className="app-layout">
-      <Sidebar />
+      {isMobile && (
+        <button
+          className="mobile-toggle-button"
+          onClick={() => setShowSidebar((prev) => !prev)}
+        >
+          ☰
+        </button>
+      )}
+
+      <Sidebar
+        isMobile={isMobile}
+        isVisible={showSidebar}
+        setIsVisible={setShowSidebar}
+      />
       <div className="dashboard-content">
         <h1>Welcome to the Dashboard, {user} 🎉</h1>
         <BalanceCard transactions={allTransactions} />
-        <PieCharts transactions={allTransactions} />
-        <LineChartbar transactions={allTransactions} />
+        <div className="charts-section">
+          <PieCharts transactions={allTransactions} />
+          <LineChartbar transactions={allTransactions} />
+        </div>
         <QuickActions fetchTransactions={fetchCashTransactions} />
         <TransactionList
           transactions={allTransactions}

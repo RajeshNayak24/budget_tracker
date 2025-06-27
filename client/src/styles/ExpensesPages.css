@@ -1,29 +1,74 @@
+:root {
+  --sidebar-width: 240px;
+  --sidebar-collapsed-width: 80px;
+}
 
 
 .app-layout {
   display: flex;
+  background-color: #eef1f5;
+  min-height: 100vh;
 }
+
 
 .expenses-content {
   margin-left: var(--sidebar-width);
-  padding: 59px;
-  padding-top: 0%;
   width: calc(100% - var(--sidebar-width));
-  background-color: #f5f6fa;
-  min-height: 100vh;
+  padding: 0px 35px;
+  background: #f9fbfd;
   transition: margin-left 0.3s ease, width 0.3s ease;
+  box-sizing: border-box;
+  overflow-x: hidden;
 }
-
 
 .sidebar.collapsed ~ .expenses-content {
   margin-left: var(--sidebar-collapsed-width);
   width: calc(100% - var(--sidebar-collapsed-width));
 }
 
+
+.expenses-title {
+  font-size: 2rem;
+  font-weight: 600;
+  color: #2c3e50;
+  margin-bottom: 20px;
+}
+
+
+.expenses-actions,
+.expenses-list {
+  margin-bottom: 30px;
+}
+
+.mobile-toggle-button {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 1101;
+  background-color: #2c3e50;
+  color: white;
+  border: none;
+  font-size: 1.5rem;
+  padding: 8px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  display: none;
+}
+
+
 @media (max-width: 768px) {
   .expenses-content {
     margin-left: 0;
     width: 100%;
+    padding: 20px 16px;
+  }
+
+  .expenses-title {
+    font-size: 1.5rem;
+    text-align: center;
+  }
+    .mobile-toggle-button {
+    display: block;
   }
 }
-

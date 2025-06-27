@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState} from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {
   FaTachometerAlt,
@@ -11,7 +11,7 @@ import {
 } from "react-icons/fa";
 import "../styles/Sidebar.css";
 
-const Sidebar = () => {
+const Sidebar = ({ isMobile, isVisible, setIsVisible }) => {
   const navigate = useNavigate();
   const [collapsed, setCollapsed] = useState(false);
 
@@ -22,56 +22,70 @@ const Sidebar = () => {
   };
 
   const toggleSidebar = () => {
-    setCollapsed(!collapsed);
+    if (isMobile) {
+      setIsVisible(false);
+    } else {
+      setCollapsed(!collapsed);
+    }
   };
 
   return (
-    <div className={`sidebar ${collapsed ? "collapsed" : ""}`}>
+    <div
+      className={`sidebar ${
+        isMobile
+          ? isVisible
+            ? "visible-on-mobile"
+            : "hidden-on-mobile"
+          : collapsed
+          ? "collapsed"
+          : ""
+      }`}
+    >
       <button className="toggle-button" onClick={toggleSidebar}>
-        {collapsed ? "☰" : "✖"}
+        {isMobile ? "✖" : collapsed ? "☰" : "✖"}
       </button>
-      {!collapsed && <h2>Budget App 💰</h2>}
+      {!collapsed && (!isMobile || isVisible) && <h2>Budget App 💰</h2>}
       <nav>
         <ul>
           <li>
             <Link to="/dashboard">
               <FaTachometerAlt className="sidebar-icon" />
-              {!collapsed && "Dashboard"}
+              {!collapsed && (!isMobile || isVisible) && "Dashboard"}
             </Link>
           </li>
           <li>
             <Link to="/link-bank">
               <FaCreditCard className="sidebar-icon" />
-              {!collapsed && "LinkBank"}
+              {!collapsed && (!isMobile || isVisible) && "LinkBank"}
             </Link>
           </li>
           <li>
             <Link to="/expenses">
               <FaMoneyBillWave className="sidebar-icon" />
-              {!collapsed && "Expenses"}
+              {!collapsed && (!isMobile || isVisible) && "Expenses"}
             </Link>
           </li>
           <li>
             <Link to="/myaccount">
               <FaUserCircle className="sidebar-icon" />
-              {!collapsed && "My Account"}
+              {!collapsed && (!isMobile || isVisible) && "My Account"}
             </Link>
           </li>
           <li>
             <Link to="/report">
               <FaChartPie className="sidebar-icon" />
-              {!collapsed && "Reports"}
+              {!collapsed && (!isMobile || isVisible) && "Reports"}
             </Link>
           </li>
           <li>
             <Link to="/settings">
               <FaCog className="sidebar-icon" />
-              {!collapsed && "Settings"}
+              {!collapsed && (!isMobile || isVisible) && "Settings"}
             </Link>
           </li>
           <li className="logout-button" onClick={handleLogout}>
             <FaSignOutAlt className="sidebar-icon" />
-            {!collapsed && "Logout"}
+            {!collapsed && (!isMobile || isVisible) && "Logout"}
           </li>
         </ul>
       </nav>
