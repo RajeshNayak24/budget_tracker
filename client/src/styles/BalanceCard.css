@@ -41,8 +41,8 @@
   margin-top: 1rem;
 }
 
-.income,
-.expense {
+.income-box,
+.expense-box {
   width: 60vw;
   padding: 0.5rem;
   margin: 10px;;

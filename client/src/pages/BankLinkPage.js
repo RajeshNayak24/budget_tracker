@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import PlaidLinkButton from "../components/PlaidLinkButton";
 import axios from "axios";
+import "../styles/LinkBank.css";
 
 const BankLinkPage = () => {
   const [linkToken, setLinkToken] = useState(null);
@@ -50,15 +51,20 @@ const BankLinkPage = () => {
       console.error("Error exchanging token:", err);
     }
   };
+
   return (
-    <div>
-      <h2>🏦 Connect Your Bank Account</h2>
-      {linkToken ? (
-        <PlaidLinkButton token={linkToken} onSuccess={handleSucess} />
-      ) : (
-        <p>Loading plaid link.....</p>
-      )}
-    </div>
+    <>
+      <div className="linkbank-layout">
+        <h2>🏦 Connect Your Bank Account</h2>
+        <div className="linkToken">
+          {linkToken ? (
+            <PlaidLinkButton token={linkToken} onSuccess={handleSucess} />
+          ) : (
+            <p>Loading plaid link.....</p>
+          )}
+        </div>
+      </div>
+    </>
   );
 };
 

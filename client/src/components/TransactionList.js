@@ -21,6 +21,19 @@ const TransactionList = ({ transactions, fetchTransactions, onEdit }) => {
     }
   };
 
+  const formatAmount = (amt) => {
+    const absAmount = Math.abs(amt.amount).toFixed(2);
+
+    if (amt.source === "plaid") {
+      return amt.amount < 0 ? `$${absAmount}` : `-$${absAmount}`;
+    }
+    if (amt.source !== "plaid") {
+      return amt.type === "income" ? `$${absAmount}` : `-$${absAmount}`;
+    }
+
+    return `$${absAmount}`;
+  };
+
   return (
     <div className="transactions-list">
       <h2>Recent Transactions</h2>
@@ -53,8 +66,15 @@ const TransactionList = ({ transactions, fetchTransactions, onEdit }) => {
                     ? tx.category.join(", ")
                     : tx.category}
                 </td>
-                <td className="transaction-amount">
-                  ${Math.abs(tx.amount).toFixed(2)}
+                <td
+                  className={`transaction-amount ${
+                    (tx.source === "plaid" && tx.amount < 0) ||
+                    (tx.source !== "plaid" && tx.type === "income")
+                      ? "income"
+                      : "expense"
+                  }`}
+                >
+                  {formatAmount(tx)}
                 </td>
                 <td>{tx.source === "plaid" ? "Card" : "Cash"}</td>
                 {tx.source !== "plaid" ? (

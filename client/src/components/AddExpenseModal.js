@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import axios from "axios";
 import "../styles/Modal.css";
 
-const AddTransactionModal = ({ isOpen, onClose, fetchTransactions }) => {
+const AddExpenseModal = ({ isOpen, onClose, fetchTransactions }) => {
   const [formData, setFormData] = useState({
     description: "",
-    type: "income",
+    type: "expense",
     amount: "",
     category: "",
     note: "",
@@ -45,7 +45,7 @@ const AddTransactionModal = ({ isOpen, onClose, fetchTransactions }) => {
   return (
     <div className="modal-overlay">
       <div className="modal">
-        <h2>Add Transaction</h2>
+        <h2>Add Expense</h2>
         <form onSubmit={handleSubmit}>
           <label>
             Description:
@@ -59,7 +59,7 @@ const AddTransactionModal = ({ isOpen, onClose, fetchTransactions }) => {
           <label>
             Type:
             <select name="type" value={formData.type} onChange={handleChange}>
-              <option value="income">Income</option>
+              <option value="expense">Expense</option>
             </select>
           </label>
           <label>
@@ -100,4 +100,4 @@ const AddTransactionModal = ({ isOpen, onClose, fetchTransactions }) => {
   );
 };
 
-export default AddTransactionModal;
+export default AddExpenseModal;

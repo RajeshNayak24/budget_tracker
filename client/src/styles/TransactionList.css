@@ -40,9 +40,11 @@
   padding: 12px 8px;
   border-bottom: 1px solid #eee;
   color: #333;
+  background-color: transparent; 
 }
 
-.transaction-row:hover {
+
+.transaction-row:hover td {
   background-color: #f0f8ff;
   transition: background 0.2s ease;
 }
@@ -52,9 +54,19 @@
 }
 
 .transaction-amount {
-  font-weight: bold;
-  text-align: right;
+  font-weight: 600;
+  text-align: left;
+  padding-right: 12px; 
 }
+
+.transaction-amount.income {
+  color: #27ae60; 
+}
+
+.transaction-amount.expense {
+  color: #c0392b; 
+}
+
 
 .transaction-edit-button,
 .transaction-delete-button {
@@ -83,6 +95,7 @@
 .transaction-delete-button:hover {
   background-color: #c0392b;
 }
+
 
 @media (max-width: 768px) {
   .transaction-table {
