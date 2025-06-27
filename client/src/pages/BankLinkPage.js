@@ -60,7 +60,7 @@ const BankLinkPage = () => {
           {linkToken ? (
             <PlaidLinkButton token={linkToken} onSuccess={handleSucess} />
           ) : (
-            <p>Loading plaid link.....</p>
+            <div className="spinner"></div>
           )}
         </div>
       </div>

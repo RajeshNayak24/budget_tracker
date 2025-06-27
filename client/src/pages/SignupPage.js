@@ -65,77 +65,74 @@ const SignupPage = () => {
     }
   };
   return (
-    <div className="signup-container">
-      <h2>Create an Account 📝</h2>
-      <button className="close-btn" onClick={() => navigate("/")}>&times;</button>
-      {error && <div className="error-message">{error}</div>}
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="name">
-            <strong>Name:</strong>
-          </label>
-          <br />
-          <input
-            type="text"
-            name="name"
-            value={name}
-            onChange={(e) => {
-              setName(e.target.value);
-            }}
-          />
-          <br />
-        </div>
-        <div>
-          <label htmlFor="email">
-            <strong>Email:</strong>
-          </label>
-          <br />
-          <input
-            type="email"
-            name="email"
-            value={email}
-            onChange={(e) => {
-              setEmail(e.target.value);
-            }}
-          />
-        </div>
-        <div>
-          <label htmlFor="password">
-            <strong>Password:</strong>
-          </label>
-          <br />
-          <input
-            type="password"
-            name="password"
-            value={password}
-            onChange={(e) => {
-              setPassword(e.target.value);
-            }}
-          />
-        </div>
-        <div>
-          <label>
-            <strong>confirmPassword:</strong>
-          </label>
-          <br />
-          <input
-            type="Password"
-            name="confirmPassword"
-            value={confirmPassword}
-            onChange={(e) => {
-              setConfirmPassword(e.target.value);
-            }}
-          />
-        </div>
-        <div>
-          <button className="signup-button" type="Submit" disabled={loading}>
-            {loading ? "Signing up..." : "Create Account"}
-          </button>
-        </div>
-        <div>
-          <button className="loginbutton" onClick={() => navigate("/login")}>Login</button>
-        </div>
-      </form>
+    <div className="signup-page-wrapper">
+      <div className="signup-container">
+        <h2>Create an Account 📝</h2>
+        <button className="close-btn" onClick={() => navigate("/")}>
+          &times;
+        </button>
+        {error && <div className="error-message">{error}</div>}
+        <form onSubmit={handleSubmit}>
+          <div className="input-group">
+            <input
+              type="text"
+              id="name"
+              name="name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              required
+              autoComplete="off"
+            />
+            <label htmlFor="name">Name</label>
+          </div>
+          <div className="input-group">
+            <input
+              type="email"
+              id="email"
+              name="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+              autoComplete="off"
+            />
+            <label htmlFor="email">Email</label>
+          </div>
+          <div className="input-group">
+            <input
+              type="password"
+              id="password"
+              name="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+              autoComplete="off"
+            />
+            <label htmlFor="password">Password</label>
+          </div>
+          <div className="input-group">
+            <input
+              type="password"
+              id="confirmPassword"
+              name="confirmPassword"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              required
+              autoComplete="off"
+            />
+            <label htmlFor="confirmPassword">Confirm Password</label>
+          </div>
+          <div>
+            <button className="signup-button" type="Submit" disabled={loading}>
+              {loading ? "Signing up..." : "Create Account"}
+            </button>
+          </div>
+          <div>
+            <button className="loginbutton" onClick={() => navigate("/login")}>
+              Login
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
   );
 };
