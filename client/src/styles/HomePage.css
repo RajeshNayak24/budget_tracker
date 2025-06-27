@@ -1,56 +1,100 @@
 .homepage-container {
-    width: 180vh;
-    height: 180vh;
-    padding: 20px;
-    background-color: aqua;
+  background: url('../assets/background-finance.jpg') no-repeat center center/cover;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 20px;
 }
-.homepage-container h1 {
-   justify-content: center;
-   border: 2px solid black;
-   border-radius: 8px;
-   display: flex;
-   background-color: beige;
-   align-items: center; 
-   height: 10vh;
 
+
+.homepage-content {
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 50px 40px;
+  border-radius: 16px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  max-width: 500px;
+  width: 100%;
 }
-.btn-group{
-    display: flex;
-    justify-content: center;
-    gap: 50px;
+
+
+.homepage-icon {
+  width: 64px;
+  height: 64px;
+  margin-bottom: 20px;
 }
+
+
+.homepage-content h1 {
+  font-size: 2.2rem;
+  color: #2c3e50;
+  margin-bottom: 12px;
+  font-weight: 700;
+}
+
+
+.homepage-subtext {
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 30px;
+}
+
+
+.btn-group {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.login-button,
 .signup-button {
-    margin-top: 1rem;
-    padding: 10px 20px;
-    background-color: #e73c3c;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-
-}
-.signup-button:hover {
-    background-color: #d8d2d2;
-    color:black
+  padding: 12px 28px;
+  font-size: 1rem;
+  border-radius: 8px;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
 }
 
 .login-button {
-    margin-top: 1rem;
-    padding: 10px 20px;
-    background-color: #e73c3c;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-.login-button:hover{
-    background-color: #d8d2d2;
-    color:black
+  background-color: #3498db;
+  color: #fff;
 }
 
-@media (max-width:768px){
-    .homepage-container {
-        margin-left: 0;
-        width: 100%;
+.login-button:hover {
+  background-color: #2980b9;
+}
+
+.signup-button {
+  background-color: #f5f5f5;
+  color: #2c3e50;
+  border: 1px solid #ccc;
+}
+
+.signup-button:hover {
+  background-color: #e6e6e6;
+}
+
+
+@media (max-width: 500px) {
+  .homepage-content {
+    padding: 30px 20px;
+  }
+
+  .homepage-content h1 {
+    font-size: 1.6rem;
+  }
+
+  .btn-group {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .login-button,
+  .signup-button {
+    width: 100%;
   }
 }

@@ -45,50 +45,60 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="login-container">
-        <h2>LoginPage</h2>
-        <button className="close-btn" onClick={() => navigate("/")}>&times;</button>
-      {error && <p className="error">{error} </p>}
-      <form onSubmit={handleSubmit}>
-        <div className="email">
-          <label htmlFor="email">Email:</label>
-          <br />
-          <input
-            type="email"
-            id="email"
-            name="email"
-            value={email}
-            onChange={(e) => {
-              setEmail(e.target.value);
-              if (error && e.target.value && password) setError("");
-            }}
-          />
-        </div>
-        <div className="password">
-          <label htmlFor="password">Password:</label>
-          <br />
-          <input
-            type="password"
-            id="password"
-            name="password"
-            value={password}
-            onChange={(e) => {
-              setPassword(e.target.value);
-              if (error && e.target.value && email) setError("");
-            }}
-          />
-        </div>
-        <div>
-          <button className="login-button" type="Submit" disabled={loading}>
-            {loading ? "loading in..." : "Login"}
+    <div className="login-page-wrapper">
+      <div className="login-container">
+        <h2>Welcome Back 👋</h2>
+        <button className="close-btn" onClick={() => navigate("/")}>
+          &times;
+        </button>
+        {error && <p className="error-message">{error}</p>}
+        <form onSubmit={handleSubmit}>
+          <div className="input-group">
+            <input
+              type="email"
+              id="email"
+              name="email"
+              value={email}
+              onChange={(e) => {
+                setEmail(e.target.value);
+                if (error && e.target.value && password) setError("");
+              }}
+              required
+              autoComplete="off"
+              placeholder=" "
+            />
+            <label htmlFor="email">Email</label>
+          </div>
+
+          <div className="input-group">
+            <input
+              type="password"
+              id="password"
+              name="password"
+              value={password}
+              onChange={(e) => {
+                setPassword(e.target.value);
+                if (error && e.target.value && email) setError("");
+              }}
+              required
+              placeholder=" "
+            />
+            <label htmlFor="password">Password</label>
+          </div>
+
+          <button className="login-button" type="submit" disabled={loading}>
+            {loading ? "Logging in..." : "Login"}
           </button>
-        </div>
-        <div>
-          <button className="signbutton" onClick={() => navigate("/signup")}>
+
+          <button
+            className="signup-button"
+            type="button"
+            onClick={() => navigate("/signup")}
+          >
             Signup
           </button>
-        </div>
-      </form>
+        </form>
+      </div>
     </div>
   );
 };
