@@ -55,8 +55,8 @@ const ExpensesPage = () => {
         const tagged = res.data.map((tx) => ({
           name: tx.name,
           date: tx.date,
-          amount: Math.abs(tx.amount),
-          type: tx.amount < 0 ? "income" : "expense",
+          amount: tx.amount,
+          type: tx.amount < 0 ? "expense" : "income",
           source: "plaid",
           category: tx.category?.[0] || inferCategory(tx.name),
         }));

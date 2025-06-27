@@ -42,11 +42,11 @@ const BalanceCard = ({ transactions }) => {
       </div>
 
       <div className="income-expense-section">
-        <div className="income">
+        <div className="income-box">
           <h4>Income</h4>
           <p className="income-amount">${income.toFixed(2)}</p>
         </div>
-        <div className="expense">
+        <div className="expense-box">
           <h4>Expense</h4>
           <p className="expense-amount">${expense.toFixed(2)}</p>
         </div>

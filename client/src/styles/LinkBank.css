@@ -1,0 +1,63 @@
+.linkbank-layout {
+  background-color: #8dd8bb;
+  padding: 40px 30px;
+  border-radius: 12px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+  max-width: 600px;
+  margin: 40px auto;
+  text-align: center;
+  transition: box-shadow 0.3s ease;
+}
+
+.linkbank-layout:hover {
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.linkbank-layout h2 {
+  font-size: 1.8rem;
+  color: #2c3e50;
+  margin-bottom: 24px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.linkToken {
+  margin-top: 20px;
+  
+}
+
+.linkToken p {
+  font-size: 1rem;
+  color: #888;
+  font-style: italic;
+}
+
+.connectbank {
+  padding: 10px 20px;
+  background-color: #0d8ddb;
+  color: rgb(202, 152, 53);
+  border: 3px solid black;
+  border-radius: 8px;
+  font-size: larger;
+  font-weight: bolder;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.connectbank:hover {
+  background-color: #0b79c1;
+}
+
+
+@media (max-width: 480px) {
+  .linkbank-layout {
+    padding: 24px 16px;
+  }
+
+  .linkbank-layout h2 {
+    font-size: 1.5rem;
+  }
+}
