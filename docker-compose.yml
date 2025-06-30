@@ -1,0 +1,44 @@
+version: "3.8"
+
+services:
+  backend:
+    build:
+      context: ./server
+    container_name: budget_backend
+    ports:
+      - "5050:5050"
+    env_file:
+      - ./server/.env
+    volumes:
+      - ./server:/app
+    depends_on:
+      - mongo
+    networks:
+      - budget_network
+
+  frontend:
+    build: ./client
+    container_name: budget_frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+    networks:
+      - budget_network
+
+  mongo:
+    image: mongo
+    container_name: budget_mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+    networks:
+      - budget_network
+
+networks:
+  budget_network:
+    driver: bridge
+
+volumes:
+  mongo_data: {}

@@ -7,3 +7,6 @@ build
 # misc
 .DS_Store
 .env
+dist/
+build/
+docker-compose.override.yml
