@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import "../styles/Modal.css";
+import { API_BASE_URL } from "../api";
 
 const AddTransactionModal = ({ isOpen, onClose, fetchTransactions }) => {
   const [formData, setFormData] = useState({
@@ -22,7 +23,7 @@ const AddTransactionModal = ({ isOpen, onClose, fetchTransactions }) => {
       const token = localStorage.getItem("token");
 
       const res = await axios.post(
-        "http://localhost:5050/api/addtransaction",
+        `${API_BASE_URL}/api/addtransaction`,
         formData,
         {
           headers: {

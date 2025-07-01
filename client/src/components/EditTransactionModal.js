@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "../styles/Modal.css";
+import { API_BASE_URL } from "../api";
 
 const EditTransactionModal = ({ isOpen, onClose, transaction, onUpdate }) => {
   const [description, setDescription] = useState("");
@@ -17,7 +18,7 @@ const EditTransactionModal = ({ isOpen, onClose, transaction, onUpdate }) => {
     try {
       const token = localStorage.getItem("token");
       await axios.put(
-        `http://localhost:5050/api/updatetransaction/${transaction._id}`,
+        `${API_BASE_URL}/api/updatetransaction/${transaction._id}`,
         { description, amount },
         {
           headers: {

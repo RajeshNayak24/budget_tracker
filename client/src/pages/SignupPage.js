@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "../styles/SignupPage.css";
+import { API_BASE_URL } from "../api";
 
 const SignupPage = () => {
   const [name, setName] = useState("");
@@ -37,7 +38,7 @@ const SignupPage = () => {
     setError("");
     setLoding(true);
     try {
-      const response = await axios.post("http://localhost:5050/api/signup", {
+      const response = await axios.post(`${API_BASE_URL}/api/signup`, {
         name,
         email,
         password,

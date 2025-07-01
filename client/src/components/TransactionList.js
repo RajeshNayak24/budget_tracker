@@ -1,13 +1,14 @@
 import React from "react";
 import axios from "axios";
 import "../styles/TransactionList.css";
+import { API_BASE_URL } from "../api";
 
 const TransactionList = ({ transactions, fetchTransactions, onEdit }) => {
   const handleDeleteTransaction = async (id) => {
     const token = localStorage.getItem("token");
     try {
       const response = await axios.delete(
-        `http://localhost:5050/api/deletetransaction/${id}`,
+        `${API_BASE_URL}/api/deletetransaction/${id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,

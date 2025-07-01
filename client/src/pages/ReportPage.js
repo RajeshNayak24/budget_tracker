@@ -17,6 +17,7 @@ import {
   Line,
 } from "recharts";
 import "../styles/ReportPage.css";
+import { API_BASE_URL } from "../api";
 
 const COLORS = [
   "#0088FE",
@@ -43,7 +44,7 @@ const ReportsPage = () => {
   useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth <= 768);
-      if (window.innerWidth > 768) setShowSidebar(true); // always show on desktop
+      if (window.innerWidth > 768) setShowSidebar(true); 
     };
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
@@ -66,12 +67,9 @@ const ReportsPage = () => {
     const fetchTransactions = async () => {
       try {
         const token = localStorage.getItem("token");
-        const res = await axios.get(
-          "http://localhost:5050/api/gettransaction",
-          {
-            headers: { Authorization: `Bearer ${token}` },
-          }
-        );
+        const res = await axios.get(`${API_BASE_URL}/api/gettransaction`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
         setTransactions(res.data.transactions || []);
       } catch (error) {
         console.error("Error fetching transactions:", error);
@@ -85,7 +83,7 @@ const ReportsPage = () => {
       try {
         const token = localStorage.getItem("token");
         const res = await axios.post(
-          "http://localhost:5050/api/plaid/transactions",
+          `${API_BASE_URL}/api/plaid/transactions`,
           {},
           {
             headers: { Authorization: `Bearer ${token}` },

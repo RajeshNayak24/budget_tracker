@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import PlaidLinkButton from "../components/PlaidLinkButton";
 import axios from "axios";
 import "../styles/LinkBank.css";
+import { API_BASE_URL } from "../api";
 
 const BankLinkPage = () => {
   const [linkToken, setLinkToken] = useState(null);
@@ -13,7 +14,7 @@ const BankLinkPage = () => {
         console.log("we are in the  createLinkToken BankLinkPage!");
         console.log("createLinkToken:", token);
         const response = await axios.post(
-          "http://localhost:5050/api/plaid/create-link-token",
+          `${API_BASE_URL}/api/plaid/create-link-token`,
           {},
           {
             headers: {
@@ -36,7 +37,7 @@ const BankLinkPage = () => {
       console.log("we are in the BankLinkPage exchanging token!", publicToken);
       console.log("Sending body:", { public_token: publicToken });
       const response = await axios.post(
-        "http://localhost:5050/api/plaid/exchange-token",
+        `${API_BASE_URL}/api/plaid/exchange-token`,
         {
           public_token: publicToken,
         },

@@ -8,6 +8,7 @@ import QuickActions from "../components/QuickActions";
 import EditTransactionModal from "../components/EditTransactionModal";
 import PieCharts from "../components/PieChart";
 import LineChartbar from "../components/LineChartbar";
+import {API_BASE_URL} from '../api'
 
 const Dashboard = () => {
   const [user, setUser] = useState("");
@@ -43,7 +44,7 @@ const Dashboard = () => {
   const fetchCashTransactions = useCallback(async () => {
     try {
       const token = localStorage.getItem("token");
-      const res = await axios.get("http://localhost:5050/api/gettransaction", {
+      const res = await axios.get(`${API_BASE_URL}/api/gettransaction`, {
         headers: { Authorization: `Bearer ${token}` },
       });
 
@@ -59,7 +60,7 @@ const Dashboard = () => {
     try {
       const token = localStorage.getItem("token");
       const res = await axios.post(
-        "http://localhost:5050/api/plaid/transactions",
+        `${API_BASE_URL}/api/plaid/transactions`,
         {},
         {
           headers: { Authorization: `Bearer ${token}` },

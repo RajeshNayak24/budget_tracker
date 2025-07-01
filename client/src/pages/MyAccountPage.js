@@ -11,7 +11,7 @@ const MyAccountPage = () => {
   useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth <= 768);
-      if (window.innerWidth > 768) setShowSidebar(true); // always show on desktop
+      if (window.innerWidth > 768) setShowSidebar(true); 
     };
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
