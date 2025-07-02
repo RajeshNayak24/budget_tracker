@@ -36,7 +36,7 @@ A full-stack budget management app built with **React (Frontend)**, **Node.js/Ex
 
 ### 📁 Folder Structure
 
-\`\`\`
+
 budget-tracker/
 ├── client/          # React frontend
 │   └── Dockerfile
@@ -46,7 +46,7 @@ budget-tracker/
 ├── docker-compose.yml
 ├── README.md
 └── .gitignore
-\`\`\`
+
 
 ---
 
@@ -54,10 +54,10 @@ budget-tracker/
 
 ### 1. Clone the Repo
 
-\`\`\`bash
+
 git clone https://github.com/yourusername/budget-tracker.git
 cd budget-tracker
-\`\`\`
+
 
 ---
 
@@ -69,9 +69,9 @@ Create a `.env` file in the `server/` folder using the template:
 
 ### 3. Run the App Using Docker
 
-\`\`\`bash
+
 docker compose up --build
-\`\`\`
+
 
 ### 4. Access the App
 
