@@ -15,7 +15,7 @@ mongoose
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
-  .then(() => console.log("MongoDB connected successfully 👍🏻!"))
+  .then(() => console.log("MongoDB connected successfully!"))
   .catch((err) => console.log(err));
 
 
@@ -24,7 +24,7 @@ app.use("/api", transactionRoutes)
 app.use("/api/plaid", plaidRoutes)
 
 app.get("/", (req, res) => {
-  res.send("🎯 Welcome to Budget Tracker!");
+  res.send("Welcome to Budget Tracker!");
   
 });
 

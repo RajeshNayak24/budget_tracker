@@ -5,13 +5,21 @@ import UpdatePasswordForm from "../components/UpdatePasswordForm";
 
 const MyAccountPage = () => {
   const [user, setUser] = useState({ name: "", email: "" });
-  const [showSidebar, setShowSidebar] = useState(true);
+  
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+  const [sidebarMode, setSidebarMode] = useState(
+    window.innerWidth <= 768?"hidden": "expanded"
+  )
 
   useEffect(() => {
     const handleResize = () => {
-      setIsMobile(window.innerWidth <= 768);
-      if (window.innerWidth > 768) setShowSidebar(true); 
+
+      const mobile=window.innerWidth <= 768;
+      setIsMobile(mobile);
+      setSidebarMode((prev)=>{
+        if(mobile) return "hidden"
+        return prev === "hidden" ? "expanded" : prev
+      })
     };
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
@@ -27,10 +35,10 @@ const MyAccountPage = () => {
 
   return (
     <div className="app-layout">
-      {isMobile && (
+      {isMobile && sidebarMode==="hidden" && (
         <button
           className="mobile-toggle-button"
-          onClick={() => setShowSidebar((prev) => !prev)}
+          onClick={() => setSidebarMode("expanded")}
         >
           ☰
         </button>
@@ -38,11 +46,11 @@ const MyAccountPage = () => {
 
       <Sidebar
         isMobile={isMobile}
-        isVisible={showSidebar}
-        setIsVisible={setShowSidebar}
+        sidebarMode={sidebarMode}
+        setSidebarMode={setSidebarMode}
       />
       <main className="account-content">
-        <h1 className="account-title">👤 My Account</h1>
+        <h1 className="account-title">My Account</h1>
 
         <section className="account-info-card">
           <h2>Account Information</h2>

@@ -12,13 +12,20 @@ const ExpensesPage = () => {
   const [plaidTransactions, setPlaidTransactions] = useState([]);
   const [editModalOpen, setEditModalOpen] = useState(false);
   const [selectedTransaction, setSelectedTransaction] = useState(null);
-  const [showSidebar, setShowSidebar] = useState(true);
+
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+  const [sidebarMode, setSidebarMode] = useState(
+    window.innerWidth <= 768 ? "hidden" : "expanded",
+  );
 
   useEffect(() => {
     const handleResize = () => {
-      setIsMobile(window.innerWidth <= 768);
-      if (window.innerWidth > 768) setShowSidebar(true); // always show on desktop
+      const mobile = window.innerWidth <= 768;
+      setIsMobile(mobile);
+      setSidebarMode((prev) => {
+        if (mobile) return "hidden";
+        return prev === "hidden" ? "expanded" : prev;
+      });
     };
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
@@ -60,7 +67,7 @@ const ExpensesPage = () => {
         {},
         {
           headers: { Authorization: `Bearer ${token}` },
-        }
+        },
       );
 
       if (res.data) {
@@ -94,10 +101,10 @@ const ExpensesPage = () => {
 
   return (
     <div className="app-layout">
-      {isMobile && (
+      {isMobile && sidebarMode === "hidden" && (
         <button
           className="mobile-toggle-button"
-          onClick={() => setShowSidebar((prev) => !prev)}
+          onClick={() => setSidebarMode("expanded")}
         >
           ☰
         </button>
@@ -105,11 +112,11 @@ const ExpensesPage = () => {
 
       <Sidebar
         isMobile={isMobile}
-        isVisible={showSidebar}
-        setIsVisible={setShowSidebar}
+        sidebarMode={sidebarMode}
+        setSidebarMode={setSidebarMode}
       />
       <main className="expenses-content">
-        <h1 className="expenses-title">💸 My Expenses</h1>
+        <h1 className="expenses-title">My Expenses</h1>
 
         <section className="expenses-actions">
           <QuickActions fetchTransactions={allTransactions} />

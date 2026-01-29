@@ -1,4 +1,4 @@
-import React, { useState} from "react";
+import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {
   FaTachometerAlt,
@@ -10,87 +10,99 @@ import {
   FaCreditCard,
 } from "react-icons/fa";
 import "../styles/Sidebar.css";
+import budgetLogo from "../assets/budget-titleimg.png";
 
-const Sidebar = ({ isMobile, isVisible, setIsVisible }) => {
+const Sidebar = ({ sidebarMode, setSidebarMode, isMobile }) => {
   const navigate = useNavigate();
-  const [collapsed, setCollapsed] = useState(false);
-
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
-    navigate("/");
-  };
+  const showText = sidebarMode === "expanded";
 
   const toggleSidebar = () => {
     if (isMobile) {
-      setIsVisible(false);
+      setSidebarMode("hidden");
     } else {
-      setCollapsed(!collapsed);
+      setSidebarMode((prev) =>
+        prev === "collapsed" ? "expanded" : "collapsed",
+      );
     }
   };
 
+  const logout = () => {
+    localStorage.clear();
+    navigate("/");
+  };
+
   return (
-    <div
-      className={`sidebar ${
-        isMobile
-          ? isVisible
-            ? "visible-on-mobile"
-            : "hidden-on-mobile"
-          : collapsed
-          ? "collapsed"
-          : ""
-      }`}
-    >
+    <aside className={`sidebar sidebar--${sidebarMode}`}>
       <button className="toggle-button" onClick={toggleSidebar}>
-        {isMobile ? "✖" : collapsed ? "☰" : "✖"}
+        {isMobile ? "✖" : sidebarMode === "collapsed" ? "☰" : "✖"}
       </button>
-      {!collapsed && (!isMobile || isVisible) && <h2>Budget App 💰</h2>}
+
+      {showText ? (
+        <div className="title">
+          <img src={budgetLogo} alt="budget logo" className="budget-icon" />
+          <h2 className="sidebar-title">Budget Tracker</h2>
+        </div>
+      ) : (
+        <h2 className="sidebar-title">
+          <img src={budgetLogo} alt="budget logo" className="budget-icon" />
+        </h2>
+      )}
       <nav>
-        <ul>
-          <li>
-            <Link to="/dashboard">
-              <FaTachometerAlt className="sidebar-icon" />
-              {!collapsed && (!isMobile || isVisible) && "Dashboard"}
-            </Link>
-          </li>
-          <li>
-            <Link to="/link-bank">
-              <FaCreditCard className="sidebar-icon" />
-              {!collapsed && (!isMobile || isVisible) && "LinkBank"}
-            </Link>
-          </li>
-          <li>
-            <Link to="/expenses">
-              <FaMoneyBillWave className="sidebar-icon" />
-              {!collapsed && (!isMobile || isVisible) && "Expenses"}
-            </Link>
-          </li>
-          <li>
-            <Link to="/myaccount">
-              <FaUserCircle className="sidebar-icon" />
-              {!collapsed && (!isMobile || isVisible) && "My Account"}
-            </Link>
-          </li>
-          <li>
-            <Link to="/report">
-              <FaChartPie className="sidebar-icon" />
-              {!collapsed && (!isMobile || isVisible) && "Reports"}
-            </Link>
-          </li>
-          <li>
-            <Link to="/settings">
-              <FaCog className="sidebar-icon" />
-              {!collapsed && (!isMobile || isVisible) && "Settings"}
-            </Link>
-          </li>
-          <li className="logout-button" onClick={handleLogout}>
+        <ul className="sidebaritems">
+          <SidebarItem
+            to="/dashboard"
+            icon={<FaTachometerAlt />}
+            label="Dashboard"
+            showText={showText}
+          />
+          <SidebarItem
+            to="/link-bank"
+            icon={<FaCreditCard />}
+            label="Link Bank"
+            showText={showText}
+          />
+          <SidebarItem
+            to="/expenses"
+            icon={<FaMoneyBillWave />}
+            label="Expenses"
+            showText={showText}
+          />
+          <SidebarItem
+            to="/myaccount"
+            icon={<FaUserCircle />}
+            label="My Account"
+            showText={showText}
+          />
+          <SidebarItem
+            to="/report"
+            icon={<FaChartPie />}
+            label="Reports"
+            showText={showText}
+          />
+          <SidebarItem
+            to="/settings"
+            icon={<FaCog />}
+            label="Settings"
+            showText={showText}
+          />
+
+          <li className="logout-button" onClick={logout}>
             <FaSignOutAlt className="sidebar-icon" />
-            {!collapsed && (!isMobile || isVisible) && "Logout"}
+            {showText && "Logout"}
           </li>
         </ul>
       </nav>
-    </div>
+    </aside>
   );
 };
+
+const SidebarItem = ({ to, icon, label, showText }) => (
+  <li className="sidebarItems">
+    <Link to={to}>
+      <span className="sidebar-icon">{icon}</span>
+      {showText && label}
+    </Link>
+  </li>
+);
 
 export default Sidebar;

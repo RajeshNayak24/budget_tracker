@@ -48,7 +48,7 @@ const LoginPage = () => {
   return (
     <div className="login-page-wrapper">
       <div className="login-container">
-        <h2>Welcome Back 👋</h2>
+        <h2>Welcome Back</h2>
         <button className="close-btn" onClick={() => navigate("/")}>
           &times;
         </button>

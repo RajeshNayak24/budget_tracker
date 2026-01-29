@@ -8,7 +8,7 @@ import QuickActions from "../components/QuickActions";
 import EditTransactionModal from "../components/EditTransactionModal";
 import PieCharts from "../components/PieChart";
 import LineChartbar from "../components/LineChartbar";
-import {API_BASE_URL} from '../api'
+import { API_BASE_URL } from "../api";
 
 const Dashboard = () => {
   const [user, setUser] = useState("");
@@ -16,30 +16,35 @@ const Dashboard = () => {
   const [plaidTransactions, setPlaidTransactions] = useState([]);
   const [editModalOpen, setEditModalOpen] = useState(false);
   const [selectedTransaction, setSelectedTransaction] = useState(null);
-  const [showSidebar, setShowSidebar] = useState(true);
+
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+  const [sidebarMode, setSidebarMode] = useState(
+    window.innerWidth <= 768 ? "hidden" : "expanded"
+  );
+
 
   useEffect(() => {
     const handleResize = () => {
-      setIsMobile(window.innerWidth <= 768);
-      if (window.innerWidth > 768) setShowSidebar(true); // always show on desktop
+      const mobile = window.innerWidth <= 768;
+      setIsMobile(mobile);
+
+      setSidebarMode((prev) => {
+        if (mobile) return "hidden";
+        return prev === "hidden" ? "expanded" : prev;
+      });
     };
+
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  function inferCategory(name) {
-    const lowered = name.toLowerCase();
-    if (lowered.includes("uber") || lowered.includes("lyft")) return "Travel";
-    if (lowered.includes("mcdonald") || lowered.includes("starbucks"))
-      return "Food";
-    if (lowered.includes("airlines")) return "Travel";
-    if (lowered.includes("sparkfun")) return "Electronics";
+  useEffect(() => {
+    const userString = localStorage.getItem("user");
+    if (userString) {
+      setUser(JSON.parse(userString).name);
+    }
+  }, []);
 
-    if (lowered.includes("amazon") || lowered.includes("shopping"))
-      return "Shopping";
-    return "Uncategorized";
-  }
 
   const fetchCashTransactions = useCallback(async () => {
     try {
@@ -47,12 +52,9 @@ const Dashboard = () => {
       const res = await axios.get(`${API_BASE_URL}/api/gettransaction`, {
         headers: { Authorization: `Bearer ${token}` },
       });
-
-      if (res.data?.transactions) {
-        setCashTransactions(res.data.transactions);
-      }
-    } catch (error) {
-      console.error("Error fetching cash transactions:", error);
+      if (res.data?.transactions) setCashTransactions(res.data.transactions);
+    } catch (err) {
+      console.error(err);
     }
   }, []);
 
@@ -62,77 +64,69 @@ const Dashboard = () => {
       const res = await axios.post(
         `${API_BASE_URL}/api/plaid/transactions`,
         {},
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
+        { headers: { Authorization: `Bearer ${token}` } }
       );
 
-      if (res.data) {
-        const tagged = res.data.map((tx) => ({
-          name: tx.name,
-          date: tx.date,
-          amount: Math.abs(tx.amount),
-          type: tx.amount < 0 ? "income" : "expense",
-          source: "plaid",
-          category: tx.category?.[0] || inferCategory(tx.name),
-        }));
+      const tagged = res.data.map((tx) => ({
+        name: tx.name,
+        date: tx.date,
+        amount: Math.abs(tx.amount),
+        type: tx.amount < 0 ? "income" : "expense",
+        source: "plaid",
+        category: tx.category?.[0] || "Uncategorized",
+      }));
 
-        setPlaidTransactions(tagged);
-      }
-    } catch (error) {
-      console.error("Error fetching plaid transactions:", error);
+      setPlaidTransactions(tagged);
+    } catch (err) {
+      console.error(err);
     }
   }, []);
-
-  const allTransactions = [...cashTransactions, ...plaidTransactions];
 
   useEffect(() => {
     fetchCashTransactions();
     fetchPlaidTransactions();
   }, [fetchCashTransactions, fetchPlaidTransactions]);
 
-  useEffect(() => {
-    const userString = localStorage.getItem("user");
-    if (userString) {
-      const userObj = JSON.parse(userString);
-      setUser(userObj.name);
-    }
-  }, []);
-
-  const handleEdit = (transaction) => {
-    setSelectedTransaction(transaction);
-    setEditModalOpen(true);
-  };
+  const allTransactions = [...cashTransactions, ...plaidTransactions];
 
   return (
     <div className="app-layout">
-      {isMobile && (
+      {isMobile && sidebarMode === "hidden" && (
         <button
           className="mobile-toggle-button"
-          onClick={() => setShowSidebar((prev) => !prev)}
+          onClick={() => setSidebarMode("expanded")}
         >
           ☰
         </button>
       )}
 
       <Sidebar
+        sidebarMode={sidebarMode}
+        setSidebarMode={setSidebarMode}
         isMobile={isMobile}
-        isVisible={showSidebar}
-        setIsVisible={setShowSidebar}
       />
+
       <div className="dashboard-content">
-        <h1>Welcome to the Dashboard, {user} 🎉</h1>
+        <h1>Welcome, {user}</h1>
+
         <BalanceCard transactions={allTransactions} />
+
         <div className="charts-section">
           <PieCharts transactions={allTransactions} />
           <LineChartbar transactions={allTransactions} />
         </div>
+
         <QuickActions fetchTransactions={fetchCashTransactions} />
+
         <TransactionList
           transactions={allTransactions}
           fetchTransactions={fetchCashTransactions}
-          onEdit={handleEdit}
+          onEdit={(tx) => {
+            setSelectedTransaction(tx);
+            setEditModalOpen(true);
+          }}
         />
+
         <EditTransactionModal
           isOpen={editModalOpen}
           onClose={() => setEditModalOpen(false)}

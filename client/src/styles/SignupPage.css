@@ -35,9 +35,10 @@
   right: 20px;
   background: none;
   border: none;
-  font-size: 1.5rem;
+  font-size: 2rem;
   color: #888;
   cursor: pointer;
+  font-weight: 900;
 }
 
 .close-btn:hover {

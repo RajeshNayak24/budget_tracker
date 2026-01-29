@@ -46,7 +46,7 @@ const SignupPage = () => {
       });
 
       console.log("Signup Success:", response.data);
-      // alert('Signup successful ✅');
+      // alert('Signup successful ');
       localStorage.setItem("token", response.data.token);
 
       setName("");
@@ -68,7 +68,7 @@ const SignupPage = () => {
   return (
     <div className="signup-page-wrapper">
       <div className="signup-container">
-        <h2>Create an Account 📝</h2>
+        <h2>Create an Account</h2>
         <button className="close-btn" onClick={() => navigate("/")}>
           &times;
         </button>
