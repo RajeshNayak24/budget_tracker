@@ -14,7 +14,7 @@
 .expenses-content {
   margin-left: var(--sidebar-width);
   width: calc(100% - var(--sidebar-width));
-  padding: 0px 35px;
+  padding: 0px 36px 0px 64px;
   background: #f9fbfd;
   transition: margin-left 0.3s ease, width 0.3s ease;
   box-sizing: border-box;

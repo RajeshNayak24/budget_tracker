@@ -1,20 +1,36 @@
-.settings-content {
-  padding: 59px;
-  padding-top: 0%;
-  background-color: #f7f9fa;
-  min-height: 100vh;
+:root {
+  --sidebar-width: 240px;
+  --sidebar-collapsed-width: 80px;
 }
+
+.settings-content {
+  margin-left: 20px;
+  padding: 0px 36px;
+  background-color: rgba(255, 255, 255, 0.95);
+  min-height: 100vh;
+  overflow-y: auto;
+  transition: margin-left 0.3s ease, width 0.3s ease;
+  width: calc(100% - var(--sidebar-width));
+  box-sizing: border-box;
+}
+
+.close-btn1:hover {
+  color: black;
+}
+
 
 .settings-content h2 {
   font-size: 2rem;
   margin-bottom: 2rem;
   color: #2c3e50;
 }
-.settings-page{
-  display: flex; 
+
+.settings-page {
+  display: flex;
   justify-content: space-between;
-  align-items: center; 
+  align-items: center;
 }
+
 .settings-section {
   background: white;
   padding: 1.5rem;
@@ -44,7 +60,5 @@
     margin-left: 0;
     width: 100%;
   }
+
 }
-
-
-

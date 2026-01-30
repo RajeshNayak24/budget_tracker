@@ -20,10 +20,10 @@ const BankLinkPage = () => {
             headers: {
               Authorization: `Bearer ${token}`,
             },
-          }
+          },
         );
         setLinkToken(response.data.link_token);
-        console.log("🔗 link_token:", response.data.link_token);
+        console.log(" link_token:", response.data.link_token);
       } catch (err) {
         console.error("Error fetching link token:", err);
       }
@@ -45,9 +45,9 @@ const BankLinkPage = () => {
           headers: {
             Authorization: `Bearer ${token}`,
           },
-        }
+        },
       );
-      console.log("🎉Access token saved:", response.data);
+      console.log("Access token saved:", response.data);
     } catch (err) {
       console.error("Error exchanging token:", err);
     }
@@ -55,14 +55,16 @@ const BankLinkPage = () => {
 
   return (
     <>
-      <div className="linkbank-layout">
-        <h2>🏦 Connect Your Bank Account</h2>
-        <div className="linkToken">
-          {linkToken ? (
-            <PlaidLinkButton token={linkToken} onSuccess={handleSucess} />
-          ) : (
-            <div className="spinner"></div>
-          )}
+      <div className="bank-container">
+        <div className="linkbank-layout">
+          <h2>Connect Your Bank Account</h2>
+          <div className="linkToken">
+            {linkToken ? (
+              <PlaidLinkButton token={linkToken} onSuccess={handleSucess} />
+            ) : (
+              <div className="spinner"></div>
+            )}
+          </div>
         </div>
       </div>
     </>

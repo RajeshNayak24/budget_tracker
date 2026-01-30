@@ -1,11 +1,12 @@
 import React from "react";
 import { PlaidLink } from "react-plaid-link";
 import { useNavigate } from "react-router-dom";
-import '../styles/LinkBank.css'
+import "../styles/LinkBank.css";
+import { ImExit } from "react-icons/im";
 
 const PlaidLinkButton = ({ token, onSuccess }) => {
   console.log("we are in PlaidLinkButton");
-  const navigate=useNavigate()
+  const navigate = useNavigate();
   return (
     <>
       <button
@@ -14,19 +15,18 @@ const PlaidLinkButton = ({ token, onSuccess }) => {
           navigate("/dashboard");
         }}
       >
-        &times;
+        <ImExit />
       </button>
       <PlaidLink
         token={token}
         onSuccess={(public_token, metadata) => {
-          console.log("✅ Plaid public_token:", public_token);
-          console.log("📊 Metadata:", metadata);
           onSuccess(public_token);
         }}
         onExit={(err, metadata) => {
-          console.warn("❌ Link exited", err, metadata);
+          console.warn(" Link exited", err, metadata);
         }}
-      className="connectbank">
+        className="connectbank"
+      >
         Connect your Bank
       </PlaidLink>
     </>

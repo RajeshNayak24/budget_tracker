@@ -1,10 +1,10 @@
-# 💰 Budget Tracker App
+#  Budget Tracker App
 
 A full-stack budget management app built with **React (Frontend)**, **Node.js/Express (Backend)**, and **MongoDB** — fully containerized using **Docker Compose**.
 
 ---
 
-## 📦 Features
+## Features
 
 - Track and manage your income and expenses
 - User authentication (login/signup)
@@ -14,7 +14,7 @@ A full-stack budget management app built with **React (Frontend)**, **Node.js/Ex
 
 ---
 
-## 🛠️ Technologies Used
+## Technologies Used
 
 - **Frontend**: React
 - **Backend**: Node.js, Express
@@ -23,18 +23,18 @@ A full-stack budget management app built with **React (Frontend)**, **Node.js/Ex
 
 ---
 
-## 🚀 Getting Started
+## Getting Started
 
-### ✅ Prerequisites
+### Prerequisites
 
 - Install [Docker Desktop](https://www.docker.com/products/docker-desktop)
 
-> ✅ Works on Mac, Windows, and Linux  
-> 💡 Make sure Docker is running in the background
+> Works on Mac, Windows, and Linux  
+> Make sure Docker is running in the background
 
 ---
 
-### 📁 Folder Structure
+###  Folder Structure
 
 
 budget-tracker/
@@ -50,7 +50,7 @@ budget-tracker/
 
 ---
 
-## 🧪 Setup Instructions
+##  Setup Instructions
 
 ### 1. Clone the Repo
 
@@ -81,7 +81,7 @@ docker compose up --build
 
 ---
 
-## 🐳 Docker Overview
+## Docker Overview
 
 This app uses **Docker Compose** to run three services:
 

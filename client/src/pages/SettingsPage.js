@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "../styles/SettingsPage.css";
 import UpdatePasswordForm from "../components/UpdatePasswordForm";
 import { useNavigate } from "react-router-dom";
+import { ImExit } from "react-icons/im";
 
 const SettingsPage = () => {
   const [emailNotifications, setEmailNotifications] = useState(true);
@@ -21,25 +22,26 @@ const SettingsPage = () => {
   return (
     <div className="settings-content">
       <div className="settings-page">
-        <h1>Settings ⚙️</h1>
-        <button className="close-btn"
+        <h2 className="settings-title">Settings </h2>
+        <button
+          className="close-btn"
           onClick={() => {
             navigate("/dashboard");
           }}
         >
-          &times;
+          <ImExit />
         </button>
       </div>
 
       <div className="settings-section">
-        <h2>Update Profile</h2>
+        <h3>Update Profile</h3>
       </div>
       <div className="settings-section">
-        <h2> Change Password</h2>
+        <h3> Change Password</h3>
         <UpdatePasswordForm />
       </div>
       <div className="settings-section">
-        <h2>Change Email</h2>
+        <h3>Change Email</h3>
       </div>
       <div className="settings-section">
         <h3>Notification Preferences</h3>

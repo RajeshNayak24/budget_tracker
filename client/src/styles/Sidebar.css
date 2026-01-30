@@ -18,27 +18,53 @@
   box-shadow: 2px 0 8px rgba(0, 0, 0, 0.15);
 }
 
-.sidebar.collapsed {
-  width: var(--sidebar-collapsed-width);
-}
-
-.sidebar h2 {
-  margin-bottom: 2rem;
-  font-size: 1.5rem;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.sidebar ul {
-  list-style: none;
-  padding: 0;
+.title {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
   margin-top: 2rem;
+  margin-bottom: 1rem;
 }
 
-.sidebar li {
-  margin: 1rem 0;
+.budget-icon {
+  width: 100%;
+  max-width: 45px;
 }
+
+.sidebar--collapsed .sidebar-title {
+  text-align: center;
+  margin-top: 3rem;
+  margin-bottom: 1rem;
+}
+
+.sidebar--expanded {
+  width: 240px;
+  transform: translateX(0);
+}
+
+.sidebar--collapsed {
+  width: var(--sidebar-collapsed-width);
+  transform: translateX(0);
+  font-size: 2rem;
+}
+
+.sidebar--hidden {
+  width: 240px;
+  transform: translateX(-100%);
+}
+
+.sidebar-title {
+  font-size: 1.35rem;
+}
+
+.sidebar-icon {
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+
+
 
 .sidebar a,
 .logout-button {
@@ -60,17 +86,6 @@
 }
 
 
-.sidebar-icon {
-  font-size: 1.2rem;
-  flex-shrink: 0;
-}
-
-.sidebar.collapsed .sidebar-icon {
-  margin: 0 auto;
-  display: block;
-  text-align: center;
-  margin-bottom: 0.5rem;
-}
 
 .toggle-button {
   position: absolute;
@@ -84,38 +99,27 @@
   z-index: 1100;
 }
 
-
-@media (max-width: 768px) {
-    .sidebar {
-    transform: translateX(-100%);
-    width: var(--sidebar-width);
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 1000;
-  }
-
-  .sidebar.visible-on-mobile {
-    transform: translateX(0);
-  }
-
-  .sidebar.hidden-on-mobile {
-    transform: translateX(-100%);
-  }
-
-  .mobile-toggle-button {
-    position: fixed;
-    top: 15px;
-    left: 15px;
-    z-index: 1100;
-    background-color: #2c3e50;
-    color: white;
-    border: none;
-    padding: 8px 12px;
-    font-size: 1.5rem;
-    border-radius: 4px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-    cursor: pointer;
-  }
+.sidebar--expanded .toggle-button:hover {
+  color: #1abc9c;
 }
 
+.sidebar--collapsed .toggle-button:hover {
+  color: #1abc9c;
+}
+
+.sidebar--collapsed .sidebaritems {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 0;
+  align-items: center;
+}
+
+.sidebaritems {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding-left: 25px;
+}

@@ -15,8 +15,6 @@ const client = new plaid.PlaidApi(
 );
 
 exports.createLinkToken = async (req, res) => {
-  console.log("🔒 JWT payload:", req.user);
-  console.log("🔒 JWT payload userId:", req.user.id);
 
   if (!req.user || !req.user.id) {
     return res.status(401).json({ error: "No user info in token" });
@@ -47,7 +45,6 @@ exports.exchangePublicToken = async (req, res) => {
   const userId = req.user.id;
 
   try {
-    console.log("🧪 Received body:", req.body);
     const response = await client.itemPublicTokenExchange({
       public_token,
     });

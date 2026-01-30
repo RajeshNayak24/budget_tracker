@@ -38,13 +38,20 @@ const ReportsPage = () => {
   const [selectedMonth, setSelectedMonth] = useState("");
   const [selectedYear, setSelectedyear] = useState("");
   const [plaidTransactions, setPlaidTransactions] = useState([]);
-  const [showSidebar, setShowSidebar] = useState(true);
+
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+  const [sidebarMode, setSidebarMode] = useState(
+    window.innerWidth <= 768 ? "hidden" : "expanded",
+  );
 
   useEffect(() => {
     const handleResize = () => {
-      setIsMobile(window.innerWidth <= 768);
-      if (window.innerWidth > 768) setShowSidebar(true); 
+      const mobile = window.innerWidth <= 768;
+      setIsMobile(mobile);
+      setSidebarMode((prev) => {
+        if (mobile) return "hidden";
+        return prev === "hidden" ? "expanded" : prev;
+      });
     };
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
@@ -87,7 +94,7 @@ const ReportsPage = () => {
           {},
           {
             headers: { Authorization: `Bearer ${token}` },
-          }
+          },
         );
 
         if (res.data) {
@@ -181,7 +188,7 @@ const ReportsPage = () => {
           t.description || "",
         ]
           .map((val) => `"${val}"`)
-          .join(",")
+          .join(","),
       ),
     ];
 
@@ -196,10 +203,10 @@ const ReportsPage = () => {
 
   return (
     <div className="app-layout">
-      {isMobile && (
+      {isMobile && sidebarMode === "hidden" && (
         <button
           className="mobile-toggle-button"
-          onClick={() => setShowSidebar((prev) => !prev)}
+          onClick={() => setSidebarMode("expanded")}
         >
           ☰
         </button>
@@ -207,16 +214,16 @@ const ReportsPage = () => {
 
       <Sidebar
         isMobile={isMobile}
-        isVisible={showSidebar}
-        setIsVisible={setShowSidebar}
+        sidebarMode={sidebarMode}
+        setSidebarMode={setSidebarMode}
       />
       <div className="reports-content">
-        <h1>Reports 📊</h1>
+        <h1>Reports</h1>
 
         <div className="summary">
-          <div className="summary-box income">Total Income: ₹{totalIncome}</div>
+          <div className="summary-box income">Total Income: ₹{totalIncome.toFixed(2)}</div>
           <div className="summary-box expense">
-            Total Expense: ₹{totalExpense}
+            Total Expense: ₹{totalExpense.toFixed(2)}
           </div>
         </div>
         <div className="filters">
