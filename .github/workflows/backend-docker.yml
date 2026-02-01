@@ -39,4 +39,6 @@ jobs:
               with:
                 context: ./server
                 push: true
-                tags: mrajeshnayak/budget-backend:latest
+                tags: |
+                  mrajeshnayak/budget-backend:1.0.0 
+                  mrajeshnayak/budget-backend:latest
