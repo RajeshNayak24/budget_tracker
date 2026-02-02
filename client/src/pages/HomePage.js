@@ -14,7 +14,7 @@ const HomePage = () => {
           alt="Budget Icon"
           className="homepage-icon"
         />
-        <h1>Welcome to the Budget Tracker</h1>
+        <h1>Welcome to the Budget Tracker v1.1.0</h1>
         <p className="homepage-subtext">
           Take control of your spending and savings
         </p>

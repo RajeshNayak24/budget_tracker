@@ -26,4 +26,6 @@ jobs:
               with:
                 context: ./client
                 push: true
-                tags: mrajeshnayak/budget-frontend:latest
+                tags: |
+                  mrajeshnayak/budget-frontend:1.1.0
+                  mrajeshnayak/budget-frontend:latest
