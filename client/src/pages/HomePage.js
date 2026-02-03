@@ -1,20 +1,15 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/HomePage.css";
-import budgetIcon from '../assets/budget-icon.svg'
-
+import budgetIcon from "../assets/budget-icon.svg";
 
 const HomePage = () => {
   const navigate = useNavigate();
   return (
     <div className="homepage-container">
       <div className="homepage-content">
-        <img
-          src={budgetIcon}
-          alt="Budget Icon"
-          className="homepage-icon"
-        />
-        <h1>Welcome to the Budget Tracker v1.1.0</h1>
+        <img src={budgetIcon} alt="Budget Icon" className="homepage-icon" />
+        <h1>Welcome to the Budget Tracker</h1>
         <p className="homepage-subtext">
           Take control of your spending and savings
         </p>
