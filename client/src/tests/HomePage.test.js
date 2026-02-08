@@ -10,7 +10,7 @@ test("renders homepage title", () => {
   );
 
   const title = screen.getByTestId("home-title");
-  expect(title).toHaveTextContent("/^Welcome to the Budget Tracker$/");
+  expect(title).toHaveTextContent("Welcome to the Budget Tracker");
 
   expect(screen.getByText("Login")).toBeInTheDocument();
   expect(screen.getByText("Register")).toBeInTheDocument();
