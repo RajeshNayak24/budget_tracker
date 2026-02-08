@@ -9,7 +9,7 @@ const HomePage = () => {
     <div className="homepage-container">
       <div className="homepage-content">
         <img src={budgetIcon} alt="Budget Icon" className="homepage-icon" />
-        <h1 data-testid="home-title">Welcome</h1>
+        <h1 data-testid="home-title">Welcome to the Budget Tracker</h1>
         <p className="homepage-subtext">
           Take control of your spending and savings
         </p>
