@@ -37,4 +37,11 @@ app.get("/", (req, res) => {
   res.send("Welcome to Budget Tracker!");
 });
 
+app.get("/health", (req, res) => {
+  res.status(200).json({
+    status: "ok",
+    version: process.env.APP_VERSION || "unknown",
+  });
+});
+
 module.exports = app;
